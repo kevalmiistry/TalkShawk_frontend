@@ -1,0 +1,41 @@
+.home_main {
+    background-color: #111;
+    height: 100vh;
+    overflow: auto;
+    .main_title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            // width: 80px;
+            height: 80px;
+            width: 80px;
+            margin-top: 10px;
+        }
+        h1 {
+            color: #fff;
+            text-align: center;
+            font-family: 'gold';
+            font-size: 3.8rem;
+            margin: 0;
+        }
+    }
+}
+
+.link {
+    color: teal;
+    user-select: none;
+    outline: none;
+    display: block;
+    border: none;
+    margin: auto;
+    margin-top: 2rem;
+    background: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.wrapper_div {
+    margin: auto;
+    width: fit-content;
+}
