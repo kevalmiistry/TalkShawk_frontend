@@ -5,6 +5,7 @@ import FormTwo from './FormTwo'
 import FormThree from './FormThree'
 import useMultistepForm from '../../../Hooks/useMultistepForm'
 import { AnimatePresence } from 'framer-motion'
+import whiteSpinner from '../../../Assets/white_spinner.gif'
 
 type AccountData = {
     email: string
@@ -35,11 +36,14 @@ const SignUp: FC = () => {
     const [isUsernameAvailable, setIsUsernameAvailable] = useState(false)
 
     /*** States for Form Two ***/
+    const [pic, setPic] = useState<string | null>(null)
 
     /*** States for Form Three ***/
     const [isPassValid, setIsPassValid] = useState(false)
     const [isPassSame, setIsPassSame] = useState(false)
 
+    // State for Submitting Form also for Form three
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const {
         theStep,
         next,
@@ -61,6 +65,8 @@ const SignUp: FC = () => {
             updateFormData={updateFormData}
             {...formData}
             currentStepState={currentStepState}
+            pic={pic}
+            setPic={setPic}
         />,
         <FormThree
             updateFormData={updateFormData}
@@ -69,6 +75,7 @@ const SignUp: FC = () => {
             setIsPassValid={setIsPassValid}
             isPassSame={isPassSame}
             setIsPassSame={setIsPassSame}
+            isSubmitting={isSubmitting}
         />,
     ])
 
@@ -76,6 +83,7 @@ const SignUp: FC = () => {
         cursor:
             isEmailAvailable && isUsernameAvailable ? 'pointer' : 'not-allowed',
     }
+    const handleCreateUser = async () => {}
 
     return (
         <div className={`${style.signup_main}`}>
@@ -92,8 +100,13 @@ const SignUp: FC = () => {
                 </AnimatePresence>
             </form>
             <div className={`flex between ${style.bottom_btns}`}>
+                {/* Back Starts */}
                 {!isFirstPage ? (
                     <button
+                        disabled={isSubmitting}
+                        className={`${style.back_btn} ${
+                            isSubmitting && 'disable'
+                        }`}
                         onClick={() => {
                             back()
                             setCurrentStepState(currentStepIndex)
@@ -104,44 +117,61 @@ const SignUp: FC = () => {
                 ) : (
                     <div></div>
                 )}
+
+                {/* Next & Finish Starts */}
                 {isLastPage ? (
-                    isPassSame ? (
-                        <button
-                            // type="submit"
-                            style={nextStyle}
-                            onClick={() => {
-                                next()
-                                setCurrentStepState(currentStepIndex)
-                            }}
-                        >
-                            Finish
-                        </button>
-                    ) : (
-                        <button
-                            disabled
-                            className="disable"
-                            style={{ cursor: 'not-allowed' }}
-                            onClick={next}
-                        >
-                            Finish
-                        </button>
-                    )
-                ) : isEmailAvailable && isUsernameAvailable ? (
+                    // isPassSame ? (
+                    // Finish or Submitting Done----------------------
                     <button
+                        disabled={isSubmitting || !isPassSame}
+                        className={`${style.next_btn} ${
+                            isSubmitting || !isPassSame ? 'disable' : ''
+                        }`}
+                        style={nextStyle}
+                        onClick={() => {
+                            next()
+                            setCurrentStepState(currentStepIndex)
+                            handleCreateUser()
+                            setIsSubmitting(true)
+                            console.log('Final Finish Clicked')
+                        }}
+                    >
+                        {isSubmitting ? (
+                            <>
+                                <span>Submiting&nbsp;</span>
+                                <img
+                                    src={whiteSpinner}
+                                    style={{ width: '1rem' }}
+                                />
+                            </>
+                        ) : (
+                            'Finish'
+                        )}
+                    </button>
+                ) : (
+                    // ) : (
+                    //     // Finish or Submitting Done----------------------
+                    //     <button
+                    //         className={style.next_btn + ' disable'}
+                    //         disabled
+                    //         style={{ cursor: 'not-allowed' }}
+                    //         onClick={next}
+                    //     >
+                    //         Finish
+                    //     </button>
+                    // )
+                    <button
+                        disabled={!isEmailAvailable || !isUsernameAvailable}
+                        className={`${style.next_btn} ${
+                            !isEmailAvailable || !isUsernameAvailable
+                                ? 'disable'
+                                : ''
+                        }`}
                         style={nextStyle}
                         onClick={() => {
                             next()
                             setCurrentStepState(currentStepIndex)
                         }}
-                    >
-                        Next
-                    </button>
-                ) : (
-                    <button
-                        disabled
-                        className="disable"
-                        style={nextStyle}
-                        onClick={next}
                     >
                         Next
                     </button>

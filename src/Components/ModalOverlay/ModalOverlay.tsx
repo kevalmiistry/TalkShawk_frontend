@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import '../../global.scss'
 import S from './ModalOverlay.module.scss'
+import { motion } from 'framer-motion'
 
 type IProp = {
     children: JSX.Element
@@ -9,7 +10,14 @@ type IProp = {
 const ModalOverlay: React.FC<IProp> = ({ children }) => {
     return ReactDOM.createPortal(
         <>
-            <div className={S.overlay_main}>{children}</div>
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                // exit={{ opacity: 0 }}
+                className={S.overlay_main}
+            >
+                {children}
+            </motion.div>
         </>,
         document.getElementById('portal')!
     )

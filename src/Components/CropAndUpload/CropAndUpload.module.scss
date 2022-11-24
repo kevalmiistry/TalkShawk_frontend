@@ -17,14 +17,22 @@
         justify-content: center;
         align-items: center;
         gap: 1rem;
+
         .file {
             display: none;
         }
+        .btn_select {
+            border-top-left-radius: 50vw;
+            border-bottom-left-radius: 50vw;
+        }
         .btn_done {
             background-color: limegreen;
+            border-top-right-radius: 50vw;
+            border-bottom-right-radius: 50vw;
         }
         .btn_close {
             background-color: red;
+            border-radius: 50vw;
         }
     }
 }
@@ -34,9 +42,28 @@
     font-size: 1.3rem;
     background: none;
     background-color: teal;
-    color: #fff;
-    font-weight: 500;
+    color: #222;
+    font-weight: 600;
     border: none;
-    border-radius: 50vw;
+    // border-radius: 50vw;
     cursor: pointer;
+}
+
+.spinner_img {
+    height: 1rem;
+}
+
+// .flex_btn_container{}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .container {
+        .container_btn {
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+}
+.container_btn {
+    .btn {
+        font-size: 1.2rem;
+    }
 }

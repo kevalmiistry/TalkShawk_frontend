@@ -44,10 +44,13 @@ const Login: FC = () => {
                     placeholder="Enter Password"
                 />
                 <motion.button
+                    // @ts-ignore
+                    disabled={''}
                     initial={{ scale: 1 }}
                     whileTap={{ scale: 0.9 }}
                     whileFocus={{ scale: 1.05 }}
                     type="button"
+                    onClick={() => console.log('Clicked' + Math.random())}
                     className={`btn ${style.login_btn}`}
                 >
                     Login

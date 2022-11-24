@@ -74,7 +74,8 @@ const FormOne: FC<TProp> = ({
                 className={style.single_form}
             >
                 <div>
-                    <input
+                    <motion.input
+                        whileFocus={{ scale: 1.05 }}
                         type="text"
                         placeholder="Enter Email"
                         name="email"
@@ -110,7 +111,8 @@ const FormOne: FC<TProp> = ({
                     </div>
                 </div>
                 <div>
-                    <input
+                    <motion.input
+                        whileFocus={{ scale: 1.05 }}
                         type="text"
                         placeholder="Enter Username"
                         name="username"

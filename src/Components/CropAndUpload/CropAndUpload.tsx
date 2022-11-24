@@ -13,14 +13,15 @@ import {
     faImage,
 } from '@fortawesome/free-solid-svg-icons'
 import { motion } from 'framer-motion'
+import whiteSpinner from '../../Assets/white_spinner.gif'
 
 type IProp = {
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
+    setPic: React.Dispatch<React.SetStateAction<string | null>>
 }
-const CropAndUpload: FC<IProp> = ({ setOpenModal }) => {
+const CropAndUpload: FC<IProp> = ({ setOpenModal, setPic }) => {
     const fileInputRef = useRef<HTMLInputElement>(null)
 
-    const [newImg, setNewImg] = useState('')
     const [isUploading, setIsUploading] = useState(false)
 
     const [open, setOpen] = useState(false)
@@ -65,9 +66,10 @@ const CropAndUpload: FC<IProp> = ({ setOpenModal }) => {
         const imageRef = ref(storage, `profilephotos/${img.name + v4()}`)
         const snapshot = await uploadBytes(imageRef, img)
         const url = await getDownloadURL(snapshot.ref)
-        console.log(url)
-        setNewImg(url)
+        // console.log(url)
+        setPic(url)
         setOpen(false)
+        setOpenModal(false)
         setIsUploading(false)
     }
     return (
@@ -98,38 +100,84 @@ const CropAndUpload: FC<IProp> = ({ setOpenModal }) => {
                             type="file"
                             onChange={onSelectFile}
                         />
+                        <div>
+                            {isUploading ? (
+                                <motion.button
+                                    disabled
+                                    type="button"
+                                    className={`${S.btn} ${S.btn_select} disable`}
+                                    onClick={() =>
+                                        fileInputRef.current?.click()
+                                    }
+                                >
+                                    Select Image&nbsp;
+                                    <FontAwesomeIcon icon={faImage} />
+                                </motion.button>
+                            ) : (
+                                <motion.button
+                                    whileTap={{ scale: 0.95 }}
+                                    transition={{ duration: '0.15' }}
+                                    type="button"
+                                    className={`${S.btn} ${S.btn_select}`}
+                                    onClick={() =>
+                                        fileInputRef.current?.click()
+                                    }
+                                >
+                                    Select Image&nbsp;
+                                    <FontAwesomeIcon icon={faImage} />
+                                </motion.button>
+                            )}
 
-                        <motion.button
-                            whileTap={{ scale: 0.95 }}
-                            transition={{ duration: '0.15' }}
-                            type="button"
-                            className={`${S.btn} ${S.btn_select}`}
-                            onClick={() => fileInputRef.current?.click()}
-                        >
-                            Select Image&nbsp;
-                            <FontAwesomeIcon icon={faImage} />
-                        </motion.button>
-
-                        <motion.button
-                            whileTap={{ scale: 0.95 }}
-                            transition={{ duration: '0.15' }}
-                            type="button"
-                            onClick={cropAndUpload}
-                            className={`${S.btn} ${S.btn_done}`}
-                        >
-                            Upload&nbsp;
-                            <FontAwesomeIcon icon={faCloudUpload} />
-                        </motion.button>
-
-                        <motion.button
-                            whileTap={{ scale: 0.95 }}
-                            transition={{ duration: '0.15' }}
-                            type="button"
-                            className={`${S.btn} ${S.btn_close}`}
-                            onClick={() => setOpenModal(false)}
-                        >
-                            <FontAwesomeIcon icon={faClose} />
-                        </motion.button>
+                            {isUploading ? (
+                                <motion.button
+                                    disabled
+                                    type="button"
+                                    onClick={cropAndUpload}
+                                    className={`${S.btn} ${S.btn_done}`}
+                                >
+                                    <>
+                                        <span>Uploading&nbsp;</span>
+                                        <img
+                                            className={`${S.spinner_img}`}
+                                            src={whiteSpinner}
+                                        />
+                                    </>
+                                </motion.button>
+                            ) : (
+                                <motion.button
+                                    whileTap={{ scale: 0.95 }}
+                                    transition={{ duration: '0.15' }}
+                                    type="button"
+                                    onClick={cropAndUpload}
+                                    className={`${S.btn} ${S.btn_done}`}
+                                >
+                                    Upload &nbsp;
+                                    <FontAwesomeIcon icon={faCloudUpload} />
+                                </motion.button>
+                            )}
+                        </div>
+                        <div>
+                            {isUploading ? (
+                                <motion.button
+                                    disabled
+                                    type="button"
+                                    className={`${S.btn} ${S.btn_close} disable`}
+                                    onClick={() => setOpenModal(false)}
+                                >
+                                    <FontAwesomeIcon icon={faClose} />
+                                </motion.button>
+                            ) : (
+                                <motion.button
+                                    whileTap={{ scale: 0.95 }}
+                                    transition={{ duration: '0.15' }}
+                                    type="button"
+                                    className={`${S.btn} ${S.btn_close}`}
+                                    onClick={() => setOpenModal(false)}
+                                >
+                                    <FontAwesomeIcon icon={faClose} />
+                                </motion.button>
+                            )}
+                        </div>
                     </div>
                 </div>
             </>

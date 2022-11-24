@@ -4,12 +4,24 @@ import { motion } from 'framer-motion'
 import CropAndUpload from '../../../Components/CropAndUpload/CropAndUpload'
 import ModalOverlay from '../../../Components/ModalOverlay/ModalOverlay'
 
+const PIC_URL =
+    'https://firebasestorage.googleapis.com/v0/b/talkshawk-4d53a.appspot.com/o/profilephotos%2Fundefinedd1d9f7d4-98df-45c4-a9fb-03a8b92cf829?alt=media&token=9e88c505-09e1-4894-9a57-8b8d486e3e13'
+
 type TProp = {
     updateFormData: (e: React.ChangeEvent<HTMLInputElement>) => void
     name: string
     currentStepState: number
+    pic: string | null
+    setPic: React.Dispatch<React.SetStateAction<string | null>>
 }
-const FormTwo: FC<TProp> = ({ updateFormData, name, currentStepState }) => {
+
+const FormTwo: FC<TProp> = ({
+    updateFormData,
+    name,
+    currentStepState,
+    pic,
+    setPic,
+}) => {
     const [openModal, setOpenModal] = useState(false)
     return (
         <motion.div
@@ -19,7 +31,8 @@ const FormTwo: FC<TProp> = ({ updateFormData, name, currentStepState }) => {
             className={style.single_form}
         >
             <div>
-                <input
+                <motion.input
+                    whileFocus={{ scale: 1.05 }}
                     type="text"
                     placeholder="Enter Your Name"
                     name="name"
@@ -29,17 +42,32 @@ const FormTwo: FC<TProp> = ({ updateFormData, name, currentStepState }) => {
                 <div className={style.small_msg}></div>
             </div>
             <div>
-                <button
-                    type="button"
-                    onClick={() => setOpenModal(true)}
-                    className={style.upload_btn}
-                >
-                    Upload Profile Photo
-                </button>
+                <div className={style.profile_wrapper}>
+                    <motion.button
+                        whileTap={{ scale: 1.1 }}
+                        type="button"
+                        onClick={() => setOpenModal(true)}
+                        className={style.upload_btn}
+                    >
+                        Upload Profile Photo
+                    </motion.button>
+                    {pic ? (
+                        <img
+                            className={style.profile_preview}
+                            src={pic}
+                            alt="profile preview"
+                        />
+                    ) : (
+                        <></>
+                    )}
+                </div>
 
                 {openModal ? (
                     <ModalOverlay>
-                        <CropAndUpload setOpenModal={setOpenModal} />
+                        <CropAndUpload
+                            setPic={setPic}
+                            setOpenModal={setOpenModal}
+                        />
                     </ModalOverlay>
                 ) : (
                     <></>

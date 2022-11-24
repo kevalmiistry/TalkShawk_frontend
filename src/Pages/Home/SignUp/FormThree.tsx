@@ -9,9 +9,10 @@ type TProp = {
     password: string
     cpassword: string
     isPassValid: boolean
-    setIsPassValid: any
+    setIsPassValid: React.Dispatch<React.SetStateAction<boolean>>
     isPassSame: boolean
-    setIsPassSame: any
+    setIsPassSame: React.Dispatch<React.SetStateAction<boolean>>
+    isSubmitting: boolean
 }
 //
 const FormThree: FC<TProp> = ({
@@ -22,6 +23,7 @@ const FormThree: FC<TProp> = ({
     setIsPassValid,
     isPassSame,
     setIsPassSame,
+    isSubmitting,
 }) => {
     const [passShow, setPassShow] = useState(false)
     const [cPassShow, setCPassShow] = useState(false)
@@ -56,6 +58,7 @@ const FormThree: FC<TProp> = ({
                 <div>
                     <div className={`${style.pass_wrapper}`}>
                         <input
+                            disabled={isSubmitting}
                             type={passShow ? 'text' : 'password'}
                             placeholder="Enter Password"
                             name="password"
@@ -87,18 +90,19 @@ const FormThree: FC<TProp> = ({
                 </div>
                 <div>
                     <div className={`${style.pass_wrapper}`}>
-                        {isPassValid ? (
-                            <input
-                                type={cPassShow ? 'text' : 'password'}
-                                placeholder="Re-Enter Password"
-                                name="cpassword"
-                                onChange={(e) => {
-                                    updateFormData(e)
-                                    isPasswordSame(e.target.value)
-                                }}
-                                value={cpassword}
-                            />
-                        ) : (
+                        {/* {isPassValid ? ( */}
+                        <input
+                            disabled={!isPassValid || isSubmitting}
+                            type={cPassShow ? 'text' : 'password'}
+                            placeholder="Re-Enter Password"
+                            name="cpassword"
+                            onChange={(e) => {
+                                updateFormData(e)
+                                isPasswordSame(e.target.value)
+                            }}
+                            value={cpassword}
+                        />
+                        {/* ) : (
                             <input
                                 disabled
                                 type={cPassShow ? 'text' : 'password'}
@@ -110,7 +114,7 @@ const FormThree: FC<TProp> = ({
                                 }}
                                 value={cpassword}
                             />
-                        )}
+                        )} */}
                         <button
                             onClick={() => setCPassShow((p) => !p)}
                             className={`${style.show_btn} ${style.showbtn2}`}
