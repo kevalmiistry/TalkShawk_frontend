@@ -1,6 +1,16 @@
 import { ReactElement, useState } from 'react'
 
-const useMultistepForm = (steps: ReactElement[]) => {
+type HookReturns = {
+    stepsLength: number
+    currentStepIndex: number
+    theStep: ReactElement
+    goTo: (index: number) => void
+    next: () => void
+    back: () => void
+    isFirstPage: boolean
+    isLastPage: boolean
+}
+const useMultistepForm = (steps: ReactElement[]): HookReturns => {
     const [currentStepIndex, setCurrentStepIndex] = useState(0)
 
     const next = () => {
@@ -22,11 +32,14 @@ const useMultistepForm = (steps: ReactElement[]) => {
     }
 
     return {
+        stepsLength: steps.length,
         currentStepIndex,
         theStep: steps[currentStepIndex],
         goTo,
         next,
         back,
+        isFirstPage: currentStepIndex === 0,
+        isLastPage: currentStepIndex === steps.length - 1,
     }
 }
 export default useMultistepForm

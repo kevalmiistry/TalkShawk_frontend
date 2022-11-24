@@ -1,0 +1,12 @@
+.overlay_main {
+    z-index: 1000;
+    position: absolute;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba($color: #222, $alpha: 0.8);
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

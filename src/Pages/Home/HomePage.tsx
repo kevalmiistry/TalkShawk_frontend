@@ -9,8 +9,17 @@ const HomePage: FC = () => {
     const [isLogin, setIsLogin] = useState(true)
     const [isSignUp, setIsSignUp] = useState(false)
     const handleSwitch = () => {
-        setIsLogin(!isLogin)
-        setIsSignUp(!isSignUp)
+        if (isLogin) {
+            setIsLogin(!isLogin)
+            setTimeout(() => {
+                setIsSignUp(!isSignUp)
+            }, 500)
+        } else if (isSignUp) {
+            setIsSignUp(!isSignUp)
+            setTimeout(() => {
+                setIsLogin(!isLogin)
+            }, 500)
+        }
     }
     return (
         <>

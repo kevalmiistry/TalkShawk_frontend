@@ -1,0 +1,116 @@
+.signup_main {
+    width: 400px;
+    margin-inline: auto;
+    margin-top: 10%;
+    position: relative;
+    // border: 1px solid red;
+    padding-top: 2rem;
+    overflow: hidden;
+    .progress {
+        color: #fff;
+        position: absolute;
+        top: 0;
+        right: 5px;
+        background-color: teal;
+        padding: 0.3rem 0.5rem;
+        border-radius: 50vw;
+        font-weight: 600;
+    }
+    form {
+        display: flex;
+    }
+
+    input {
+        font-size: 1.4rem;
+        outline: none;
+        border-radius: 15px;
+        border: none;
+        padding: 1rem 1.6rem;
+        background-color: #333;
+        color: #f4f4f4;
+        font-weight: 600;
+        width: 400px;
+    }
+
+    .bottom_btns {
+        // margin-top: 15rem;
+        margin-top: 2rem;
+        button {
+            font-size: 1.25rem;
+            background: none;
+            border: none;
+            outline: none;
+            background-color: teal;
+            padding: 0.5rem 1.2rem;
+            color: #fff;
+            border-radius: 50vw;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    }
+}
+
+.single_form {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    // width: 90%;
+    // border: 1px solid yellow;
+}
+
+.small_msg {
+    margin: 0;
+    margin-left: 0.5rem;
+    margin-top: 0.3rem;
+    height: 14px;
+    p {
+        font-size: 1rem;
+        color: #fff;
+    }
+    .small_spinner {
+        height: 14px;
+        width: 14px;
+    }
+}
+
+.file {
+    display: none;
+}
+.pass_wrapper {
+    // border: 1px solid red;
+    width: fit-content;
+    position: relative;
+}
+.upload_btn {
+    font-size: 1.2rem;
+    padding: 1rem;
+    border-radius: 30vw;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.show_btn {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 1rem 0.8rem;
+    font-size: 1.2rem;
+    background: none;
+    color: #999;
+    border: none;
+    outline: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .signup_main {
+        width: 90%;
+        input {
+            width: 100%;
+        }
+    }
+    .small_msg {
+        width: 90%;
+    }
+}
