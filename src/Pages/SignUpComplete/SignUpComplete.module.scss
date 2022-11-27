@@ -1,0 +1,82 @@
+.container {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .success_gif_cont {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .success_gif {
+            justify-self: center;
+        }
+    }
+
+    .logo {
+        margin-top: 2rem;
+        display: flex;
+        font-family: 'gold';
+        font-size: 2.2rem;
+        justify-content: center;
+        align-items: center;
+        img {
+            width: 90px;
+            height: 90px;
+            margin-bottom: -1rem;
+        }
+    }
+
+    .box {
+        margin-top: 4.5rem;
+        min-width: 400px;
+        text-align: center;
+        h1 {
+            color: teal;
+            font-size: 3rem;
+        }
+        p {
+            margin-top: 3rem;
+            font-style: italic;
+        }
+        .login_btn {
+            background-color: teal;
+            display: block;
+            margin: auto;
+            margin-top: 2.5rem;
+        }
+    }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .container {
+        .success_gif_cont {
+            .success_gif {
+                width: 120vw;
+                margin-top: -20%;
+            }
+        }
+        .logo {
+            margin-top: 1rem; //
+            font-size: 1.5rem; //
+            img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        .box {
+            margin-top: 3.5rem; //
+            padding-inline: 1.8rem; //
+            h1 {
+                font-size: 2.2rem; //
+            }
+            p {
+                font-size: 1.3rem; //
+            }
+        }
+    }
+}

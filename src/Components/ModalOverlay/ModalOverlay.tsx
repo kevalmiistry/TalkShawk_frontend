@@ -13,7 +13,6 @@ const ModalOverlay: React.FC<IProp> = ({ children }) => {
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                // exit={{ opacity: 0 }}
                 className={S.overlay_main}
             >
                 {children}

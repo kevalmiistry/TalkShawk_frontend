@@ -3,11 +3,14 @@ import style from './Home.module.scss'
 import Login from './Login/Login'
 import SignUp from './SignUp/SignUp'
 import { motion, AnimatePresence } from 'framer-motion'
-import TSLogo from '../../Assets/TalkShawk_Logo.png'
+import TSLogo from '../../Assets/talkshawk_logo.png'
 
 const HomePage: FC = () => {
     const [isLogin, setIsLogin] = useState(true)
     const [isSignUp, setIsSignUp] = useState(false)
+
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
     const handleSwitch = () => {
         if (isLogin) {
             setIsLogin(!isLogin)
@@ -40,7 +43,10 @@ const HomePage: FC = () => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                         >
-                            <Login />
+                            <Login
+                                isSubmitting={isSubmitting}
+                                setIsSubmitting={setIsSubmitting}
+                            />
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -57,19 +63,24 @@ const HomePage: FC = () => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                         >
-                            <SignUp />
+                            <SignUp
+                                isSubmitting={isSubmitting}
+                                setIsSubmitting={setIsSubmitting}
+                            />
                         </motion.div>
                     )}
                 </AnimatePresence>
 
-                <motion.button
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    onClick={handleSwitch}
-                    className={style.link}
-                >
-                    {isLogin ? 'Signup' : 'Login'}?
-                </motion.button>
+                {!isSubmitting && (
+                    <motion.button
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        onClick={handleSwitch}
+                        className={style.link}
+                    >
+                        {isLogin ? 'Signup' : 'Login'}?
+                    </motion.button>
+                )}
             </section>
         </>
     )

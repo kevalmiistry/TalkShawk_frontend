@@ -6,7 +6,13 @@ import FormThree from './FormThree'
 import useMultistepForm from '../../../Hooks/useMultistepForm'
 import { AnimatePresence } from 'framer-motion'
 import whiteSpinner from '../../../Assets/white_spinner.gif'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
+type TProp = {
+    isSubmitting: boolean
+    setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>
+}
 type AccountData = {
     email: string
     username: string
@@ -23,7 +29,7 @@ const INITIAL_DATA = {
     cpassword: '',
 }
 
-const SignUp: FC = () => {
+const SignUp: FC<TProp> = ({ isSubmitting, setIsSubmitting }) => {
     const updateFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
@@ -42,8 +48,7 @@ const SignUp: FC = () => {
     const [isPassValid, setIsPassValid] = useState(false)
     const [isPassSame, setIsPassSame] = useState(false)
 
-    // State for Submitting Form also for Form three
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    // useMultistepForm Hook Start
     const {
         theStep,
         next,
@@ -78,12 +83,32 @@ const SignUp: FC = () => {
             isSubmitting={isSubmitting}
         />,
     ])
+    // useMultistepForm Hook End
 
     const nextStyle = {
         cursor:
             isEmailAvailable && isUsernameAvailable ? 'pointer' : 'not-allowed',
     }
-    const handleCreateUser = async () => {}
+
+    const nev = useNavigate()
+    // Fetch createuser API Function
+    const handleCreateUser = async () => {
+        setIsSubmitting(true)
+
+        const url = process.env.REACT_APP_API_URL + '/user/createuser'
+
+        const { data } = await axios.post(url, {
+            name: formData.name === '' ? formData.username : formData.name,
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+            pic: pic,
+        })
+
+        if (data.success) {
+            nev('/signupcomplete')
+        }
+    }
 
     return (
         <div className={`${style.signup_main}`}>
@@ -120,8 +145,6 @@ const SignUp: FC = () => {
 
                 {/* Next & Finish Starts */}
                 {isLastPage ? (
-                    // isPassSame ? (
-                    // Finish or Submitting Done----------------------
                     <button
                         disabled={isSubmitting || !isPassSame}
                         className={`${style.next_btn} ${
@@ -130,10 +153,7 @@ const SignUp: FC = () => {
                         style={nextStyle}
                         onClick={() => {
                             next()
-                            setCurrentStepState(currentStepIndex)
                             handleCreateUser()
-                            setIsSubmitting(true)
-                            console.log('Final Finish Clicked')
                         }}
                     >
                         {isSubmitting ? (
@@ -141,6 +161,7 @@ const SignUp: FC = () => {
                                 <span>Submiting&nbsp;</span>
                                 <img
                                     src={whiteSpinner}
+                                    alt="spinning gif"
                                     style={{ width: '1rem' }}
                                 />
                             </>
@@ -149,17 +170,6 @@ const SignUp: FC = () => {
                         )}
                     </button>
                 ) : (
-                    // ) : (
-                    //     // Finish or Submitting Done----------------------
-                    //     <button
-                    //         className={style.next_btn + ' disable'}
-                    //         disabled
-                    //         style={{ cursor: 'not-allowed' }}
-                    //         onClick={next}
-                    //     >
-                    //         Finish
-                    //     </button>
-                    // )
                     <button
                         disabled={!isEmailAvailable || !isUsernameAvailable}
                         className={`${style.next_btn} ${

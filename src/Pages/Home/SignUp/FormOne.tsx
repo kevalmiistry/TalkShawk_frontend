@@ -36,10 +36,9 @@ const FormOne: FC<TProp> = ({
             setIsEmailOk(true)
             // fetch email check api
             setIsEmailLoading(true)
-            const { data } = await axios.post(
-                'http://localhost:5000/api/user/isemail',
-                { email: query }
-            )
+            const url = process.env.REACT_APP_API_URL + '/user/isemail'
+
+            const { data } = await axios.post(url, { email: query })
             setIsEmailLoading(false)
             setIsEmailAvailable(data.available)
         } else {
@@ -54,10 +53,9 @@ const FormOne: FC<TProp> = ({
             setIsUsernameOk(true)
             setIsUsernameLoading(true)
             // fetch username check api
-            const { data } = await axios.post(
-                'http://localhost:5000/api/user/isusername',
-                { username: query }
-            )
+            const url = process.env.REACT_APP_API_URL + '/user/isusername'
+
+            const { data } = await axios.post(url, { username: query })
             setIsUsernameLoading(false)
             setIsUsernameAvailable(data.available)
         } else {

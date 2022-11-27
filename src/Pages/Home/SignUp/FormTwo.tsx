@@ -4,9 +4,6 @@ import { motion } from 'framer-motion'
 import CropAndUpload from '../../../Components/CropAndUpload/CropAndUpload'
 import ModalOverlay from '../../../Components/ModalOverlay/ModalOverlay'
 
-const PIC_URL =
-    'https://firebasestorage.googleapis.com/v0/b/talkshawk-4d53a.appspot.com/o/profilephotos%2Fundefinedd1d9f7d4-98df-45c4-a9fb-03a8b92cf829?alt=media&token=9e88c505-09e1-4894-9a57-8b8d486e3e13'
-
 type TProp = {
     updateFormData: (e: React.ChangeEvent<HTMLInputElement>) => void
     name: string

@@ -3,14 +3,13 @@
     margin-inline: auto;
     margin-top: 10%;
     position: relative;
-    // border: 1px solid red;
     padding-top: 2rem;
     overflow: hidden;
     .progress {
         color: #fff;
         position: absolute;
         top: 0;
-        right: 5%;
+        right: 10%;
         background-color: teal;
         padding: 0.3rem 0.5rem;
         border-radius: 50vw;
@@ -34,7 +33,6 @@
     }
 
     .bottom_btns {
-        // margin-top: 15rem;
         margin-top: 2rem;
         button {
             font-size: 1.25rem;
@@ -54,20 +52,18 @@
     margin-left: 5%;
 }
 .next_btn {
-    margin-right: 5%;
+    margin-right: 10%;
 }
 .single_form {
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    // width: 90%;
-    // border: 1px solid yellow;
 }
 
 .small_msg {
     margin: 0;
-    margin-left: 7%;
+    margin-left: 2%;
     margin-top: 0.3rem;
     height: 14px;
     p {
@@ -92,18 +88,10 @@
     border-radius: 50vw;
 }
 
-// .profile_preview::after {
-//     content: 'Preview';
-//     color: #fff;
-//     position: absolute;
-//     bottom: 0;
-// }
-
 .file {
     display: none;
 }
 .pass_wrapper {
-    // border: 1px solid red;
     width: fit-content;
     position: relative;
 }
@@ -113,7 +101,7 @@
     border-radius: 30vw;
     cursor: pointer;
     font-weight: 600;
-    margin-left: 5%;
+    margin-left: 1%;
 }
 
 .show_btn {
@@ -135,6 +123,7 @@
         width: 95%;
         .progress {
             font-size: 1.2rem;
+            right: 5%;
         }
         form {
             display: flex;
@@ -147,7 +136,19 @@
             width: 90%;
         }
     }
+    .upload_btn {
+        margin-left: 8%;
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
     .small_msg {
-        width: 90%;
+        height: 14px;
+        margin-left: 7%;
+    }
+    .next_btn {
+        margin-right: 7%;
+    }
+    .profile_preview {
+        margin-right: 5%;
     }
 }

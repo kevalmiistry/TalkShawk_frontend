@@ -14,7 +14,7 @@ type TProp = {
     setIsPassSame: React.Dispatch<React.SetStateAction<boolean>>
     isSubmitting: boolean
 }
-//
+
 const FormThree: FC<TProp> = ({
     updateFormData,
     password,
@@ -57,7 +57,8 @@ const FormThree: FC<TProp> = ({
             >
                 <div>
                     <div className={`${style.pass_wrapper}`}>
-                        <input
+                        <motion.input
+                            whileFocus={{ scale: 1.05 }}
                             disabled={isSubmitting}
                             type={passShow ? 'text' : 'password'}
                             placeholder="Enter Password"
@@ -88,10 +89,11 @@ const FormThree: FC<TProp> = ({
                         </p>
                     </div>
                 </div>
+                {/*  */}
                 <div>
                     <div className={`${style.pass_wrapper}`}>
-                        {/* {isPassValid ? ( */}
-                        <input
+                        <motion.input
+                            whileFocus={{ scale: 1.05 }}
                             disabled={!isPassValid || isSubmitting}
                             type={cPassShow ? 'text' : 'password'}
                             placeholder="Re-Enter Password"
@@ -102,19 +104,6 @@ const FormThree: FC<TProp> = ({
                             }}
                             value={cpassword}
                         />
-                        {/* ) : (
-                            <input
-                                disabled
-                                type={cPassShow ? 'text' : 'password'}
-                                placeholder="Re-Enter Password"
-                                name="cpassword"
-                                onChange={(e) => {
-                                    updateFormData(e)
-                                    isPasswordSame(e.target.value)
-                                }}
-                                value={cpassword}
-                            />
-                        )} */}
                         <button
                             onClick={() => setCPassShow((p) => !p)}
                             className={`${style.show_btn} ${style.showbtn2}`}
