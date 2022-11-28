@@ -14,6 +14,17 @@ $main-color: teal;
     font-family: 'gold';
     src: url('./Assets/GoldleafBold.ttf');
 }
+// for Chrome-Safari
+::-webkit-scrollbar {
+    width: 0;
+}
+
+// for FireFox
+@supports (scrollbar-width: none) {
+    * {
+        scrollbar-width: none;
+    }
+}
 
 body {
     font-size: 22px;

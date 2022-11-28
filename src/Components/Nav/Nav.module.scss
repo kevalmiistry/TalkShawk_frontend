@@ -1,0 +1,16 @@
+.nav_main {
+    // border: 1px solid red;
+    padding: 0.2rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    .user_profile {
+        width: 40px;
+        border-radius: 50vw;
+    }
+    .logo {
+        width: 60px;
+        height: 60px;
+    }
+}

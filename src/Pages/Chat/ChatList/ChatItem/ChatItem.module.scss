@@ -1,0 +1,28 @@
+.chatitem {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.5rem;
+    gap: 1rem;
+    // margin-inline: 1rem;
+    border-bottom: 1px solid #333;
+    &:hover {
+        background-color: #222;
+    }
+    img {
+        width: 3.5rem;
+        border-radius: 50vw;
+    }
+    .name {
+        font-size: 1.1rem;
+    }
+    .latest_msg {
+        font-size: 0.9rem;
+        color: #888;
+        // font-weight: 900;
+    }
+}
+
+span {
+    font-style: italic;
+}

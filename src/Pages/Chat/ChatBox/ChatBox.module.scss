@@ -1,0 +1,18 @@
+.chatbox_main {
+    z-index: 120;
+    width: 65%;
+    // height: 90%;
+    // border: 1px solid yellow;
+    background-color: rgba(0, 0, 0, 0.9);
+    transition: all 100ms ease-out;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .chatbox_main {
+        // display: none;
+        position: absolute;
+        inset: 0;
+        width: 100vw;
+        // transform: translateX(100%);
+        // transform: translateX(0%);
+    }
+}
