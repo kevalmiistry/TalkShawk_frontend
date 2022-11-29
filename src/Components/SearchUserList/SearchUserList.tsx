@@ -7,10 +7,9 @@ import UserSkeleton from '../UserSkeleton/UserSkeleton'
 
 type TProp = {
     searchResults: UserData[]
-    isSearching: boolean
 }
 
-const SearchUserList: React.FC<TProp> = ({ searchResults, isSearching }) => {
+const SearchUserList: React.FC<TProp> = ({ searchResults }) => {
     const [animationParent] = useAutoAnimate<HTMLUListElement>()
     return (
         <motion.div
@@ -20,15 +19,9 @@ const SearchUserList: React.FC<TProp> = ({ searchResults, isSearching }) => {
             className={S.searchuserlist_main}
         >
             <ul ref={animationParent}>
-                {!isSearching &&
-                    (searchResults.length > 0 ? (
-                        searchResults.map((u: UserData) => (
-                            <UserItem key={u._id} user={u} />
-                        ))
-                    ) : (
-                        <></>
-                    ))}
-                {isSearching && <UserSkeleton />}
+                {searchResults?.map((u: UserData) => (
+                    <UserItem key={u._id} user={u} />
+                ))}
             </ul>
         </motion.div>
     )

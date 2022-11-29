@@ -80,10 +80,7 @@ const ChatList: React.FC = () => {
                     exitBeforeEnter={true}
                 >
                     {isSearchOnFocus && (
-                        <SearchUserList
-                            isSearching={isSearching}
-                            searchResults={searchResults}
-                        />
+                        <SearchUserList searchResults={searchResults} />
                     )}
                 </AnimatePresence>
             </div>
