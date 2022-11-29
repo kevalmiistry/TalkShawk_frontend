@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Nav from '../../../Components/Nav/Nav'
 import SearchBox from '../../../Components/SearchBox/SearchBox'
 import SearchUserList from '../../../Components/SearchUserList/SearchUserList'
+import UserSkeleton from '../../../Components/UserSkeleton/UserSkeleton'
 import ChatState from '../../../Context/ChatContext'
 import ChatItem from './ChatItem/ChatItem'
 import S from './ChatList.module.scss'
@@ -13,6 +14,7 @@ const ChatList: React.FC = () => {
     const [isSearchOnFocus, setIsSearchOnFocus] = useState(false)
     const [searchResults, setSearchResults] = useState<any[]>([])
     const [isSearching, setIsSearching] = useState(false)
+    const [isChatsFetching, setIsChatsFetching] = useState(false)
 
     const { user, chats, setChats } = ChatState()
     const onSearch = async (query: string) => {
@@ -36,10 +38,13 @@ const ChatList: React.FC = () => {
             const config = {
                 headers: { 'auth-token': user?.token },
             }
+            setIsChatsFetching(true)
             const { data } = await axios.get(url, config)
-            // console.log(data, config)
             setChats(data)
-        } catch (error) {}
+            setIsChatsFetching(false)
+        } catch (error) {
+            console.error(error)
+        }
     }
     useEffect(() => {
         if (search === '') {
@@ -63,18 +68,22 @@ const ChatList: React.FC = () => {
                 onSearch={onSearch}
                 isSearching={isSearching}
             />
-
             <div className={S.list}>
-                {chats?.map((c: SingleChatData) => (
-                    <ChatItem key={c._id} chat={c} />
-                ))}
+                {!isChatsFetching &&
+                    chats?.map((c: SingleChatData) => (
+                        <ChatItem key={c._id} chat={c} />
+                    ))}
+                {isChatsFetching && <UserSkeleton />}
                 <AnimatePresence
                     initial={false}
                     onExitComplete={() => null}
                     exitBeforeEnter={true}
                 >
                     {isSearchOnFocus && (
-                        <SearchUserList searchResults={searchResults} />
+                        <SearchUserList
+                            isSearching={isSearching}
+                            searchResults={searchResults}
+                        />
                     )}
                 </AnimatePresence>
             </div>
