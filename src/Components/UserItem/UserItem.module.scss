@@ -3,9 +3,8 @@
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
-    // border: 1px solid red;
-    border-bottom: 1px solid #888;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
     &:hover {
         background-color: #333;
     }

@@ -49,6 +49,7 @@ const ChatList: React.FC = () => {
 
     useEffect(() => {
         fetchChats()
+        // eslint-disable-next-line
     }, [])
 
     return (

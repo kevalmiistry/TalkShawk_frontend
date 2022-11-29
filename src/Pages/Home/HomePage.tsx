@@ -4,12 +4,28 @@ import Login from './Login/Login'
 import SignUp from './SignUp/SignUp'
 import { motion, AnimatePresence } from 'framer-motion'
 import TSLogo from '../../Assets/talkshawk_logo.png'
+import { useNavigate } from 'react-router-dom'
+import ChatState from '../../Context/ChatContext'
 
 const HomePage: FC = () => {
     const [isLogin, setIsLogin] = useState(true)
     const [isSignUp, setIsSignUp] = useState(false)
 
     const [isSubmitting, setIsSubmitting] = useState(false)
+
+    const { setUser } = ChatState()
+    const nev = useNavigate()
+    React.useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('talkshawk_user')!)
+        setUser(userInfo)
+
+        if (!userInfo) {
+            nev('/')
+        } else {
+            nev('/chat')
+        }
+        // eslint-disable-next-line
+    }, [nev])
 
     const handleSwitch = () => {
         if (isLogin) {

@@ -23,6 +23,7 @@ declare interface SingleChatData {
     _id: string
     chatName: string
     isGroupChat: boolean
+    groupPic: string
     users: UserData[]
     groupAdmins: UserData[]
     latestMessage?: TLatestMessage

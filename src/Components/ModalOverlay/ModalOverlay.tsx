@@ -6,13 +6,25 @@ import { motion } from 'framer-motion'
 
 type IProp = {
     children: JSX.Element
+    initial?: object
+    animate?: object
+    exit?: object
 }
-const ModalOverlay: React.FC<IProp> = ({ children }) => {
+const ModalOverlay: React.FC<IProp> = ({
+    children,
+    initial,
+    animate,
+    exit,
+}) => {
     return ReactDOM.createPortal(
         <>
             <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={initial ? initial : { opacity: 0 }}
+                animate={animate ? animate : { opacity: 1 }}
+                exit={exit ? exit : { opacity: 0 }}
+                // initial={{ opacity: 0 }}
+                // animate={{ opacity: 1 }}
+                // exit={{ opacity: 0 }}
                 className={S.overlay_main}
             >
                 {children}

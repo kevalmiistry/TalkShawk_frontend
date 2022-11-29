@@ -6,7 +6,7 @@ type TProp = {
 }
 const UserItem: React.FC<TProp> = ({ user }) => {
     return (
-        <li className={S.useritem}>
+        <li className={S.useritem} onClick={() => null}>
             <img src={user.pic} alt="" />
             <div>
                 <p className={S.name}>{user.name}</p>

@@ -1,18 +1,95 @@
 .chatbox_main {
     z-index: 120;
     width: 65%;
-    // height: 90%;
+    height: 100%;
     // border: 1px solid yellow;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0);
     transition: all 100ms ease-out;
+    .svg {
+        // border: 1px solid yellow;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        div {
+            width: 50%;
+            height: 50%;
+            margin-bottom: 6rem;
+            transform: rotate(-10deg);
+        }
+        p {
+            font-size: 1.25rem;
+            font-style: italic;
+            color: #888;
+        }
+    }
+    .main_chat {
+        // border: 1px solid yellow;
+        height: 99%;
+        .chat_head {
+            height: 10%;
+            background-color: #111;
+            position: relative;
+            display: flex;
+            // justify-content: space-between;
+            align-items: center;
+            .icon_pic_wrapper {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 1rem;
+                .back_icon {
+                    margin-left: 1rem;
+                    cursor: pointer;
+                }
+                .chat_pic {
+                    width: 3.3rem;
+                    border-radius: 50vw;
+                }
+                .chat_name {
+                    color: #fff;
+                }
+            }
+        }
+        .chat_content {
+            height: 83%;
+            // border: 1px solid red;
+        }
+        .type_field {
+            height: 8%;
+            padding: 5px;
+            // background-color: #555;
+            input {
+                width: 100%;
+                height: 3rem;
+                outline: none;
+                border: none;
+                background-color: #333;
+                border-radius: 50vw;
+                font-size: 1.15rem;
+                padding-inline: 1.3rem;
+                color: #fff;
+            }
+        }
+    }
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
     .chatbox_main {
-        // display: none;
         position: absolute;
         inset: 0;
         width: 100vw;
-        // transform: translateX(100%);
-        // transform: translateX(0%);
+        .main_chat {
+            height: 92%;
+            .chat_head {
+                height: 8%;
+            }
+            .chat_content {
+                height: 84%;
+            }
+            .type_field {
+                height: 8%;
+            }
+        }
     }
 }

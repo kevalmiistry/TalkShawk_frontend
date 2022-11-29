@@ -5,10 +5,22 @@ import S from './ChatPage.module.scss'
 import { isMobile } from 'react-device-detect'
 import { AnimatePresence } from 'framer-motion'
 import ChatState from '../../Context/ChatContext'
+import { useNavigate } from 'react-router-dom'
 
 const ChatPage: FC = () => {
-    const [test, setTest] = React.useState(false)
-    const { user } = ChatState()
+    const { user, setUser, selectedChat } = ChatState()
+    const nev = useNavigate()
+    React.useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('talkshawk_user')!)
+        setUser(userInfo)
+
+        if (!userInfo) {
+            nev('/')
+        } else {
+            nev('/chat')
+        }
+        // eslint-disable-next-line
+    }, [nev])
     return (
         <>
             {user && (
@@ -20,7 +32,7 @@ const ChatPage: FC = () => {
                             onExitComplete={() => null}
                             exitBeforeEnter={true}
                         >
-                            {test && <ChatBox />}
+                            {selectedChat && <ChatBox />}
                         </AnimatePresence>
                     ) : (
                         <ChatBox />

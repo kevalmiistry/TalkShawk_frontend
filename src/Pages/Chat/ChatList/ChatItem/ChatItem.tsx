@@ -6,18 +6,20 @@ import S from './ChatItem.module.scss'
 type TProp = {
     chat: SingleChatData
 }
-const tempURL =
-    'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
+
 const ChatItem: React.FC<TProp> = ({ chat }) => {
-    const { user } = ChatState()
+    const { user, setSelectedChat } = ChatState()
 
     const name = chat.isGroupChat
         ? chat.chatName
         : getOppositeUser(chat.users, user!).name
 
+    const pic = chat.isGroupChat
+        ? chat.groupPic
+        : getOppositeUser(chat.users, user!).pic
     return (
-        <li className={S.chatitem}>
-            <img src={tempURL} alt="" />
+        <li className={S.chatitem} onClick={() => setSelectedChat(chat)}>
+            <img src={pic} alt="chat profile pic" />
             <div>
                 <p className={S.name}>{name}</p>
                 <p className={S.latest_msg}>

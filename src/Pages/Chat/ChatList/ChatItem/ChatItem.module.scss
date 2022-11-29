@@ -2,10 +2,16 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 0.5rem;
-    gap: 1rem;
-    // margin-inline: 1rem;
-    border-bottom: 1px solid #333;
+    gap: 0.5rem;
+    padding-inline: 1rem;
+    cursor: pointer;
+    div {
+        padding: 0.5rem;
+        padding-block: 1.5rem;
+        border-bottom: 1px solid #333;
+        width: 100%;
+        height: 5rem;
+    }
     &:hover {
         background-color: #222;
     }
@@ -18,11 +24,9 @@
     }
     .latest_msg {
         font-size: 0.9rem;
-        color: #888;
-        // font-weight: 900;
+        color: teal;
+        span {
+            font-style: italic;
+        }
     }
-}
-
-span {
-    font-style: italic;
 }
