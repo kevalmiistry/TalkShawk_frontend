@@ -3,10 +3,12 @@ import React, { createContext, useContext, useState } from 'react'
 type TChatContext = {
     user: UserData | null
     setUser: React.Dispatch<React.SetStateAction<UserData | null>>
-    selectedChat: any
-    setSelectedChat: any
+    selectedChat: SingleChatData | null
+    setSelectedChat: React.Dispatch<React.SetStateAction<SingleChatData | null>>
     chats: SingleChatData[]
-    setChats: any
+    setChats: React.Dispatch<React.SetStateAction<SingleChatData[]>>
+    fetchChatsAgain: boolean
+    setFetchChatsAgain: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ChatContext = createContext<TChatContext>({} as TChatContext)
@@ -20,6 +22,7 @@ export const ChatProvider: React.FC<TProp> = ({ children }) => {
         null
     )
     const [chats, setChats] = useState([] as SingleChatData[])
+    const [fetchChatsAgain, setFetchChatsAgain] = useState(false)
 
     return (
         <>
@@ -31,6 +34,8 @@ export const ChatProvider: React.FC<TProp> = ({ children }) => {
                     setSelectedChat,
                     chats,
                     setChats,
+                    fetchChatsAgain,
+                    setFetchChatsAgain,
                 }}
             >
                 {children}

@@ -16,7 +16,8 @@ const ChatList: React.FC = () => {
     const [isSearching, setIsSearching] = useState(false)
     const [isChatsFetching, setIsChatsFetching] = useState(false)
 
-    const { user, chats, setChats } = ChatState()
+    const { user, chats, setChats, fetchChatsAgain } = ChatState()
+
     const onSearch = async (query: string) => {
         if (query === '') {
             setSearchResults([])
@@ -55,7 +56,7 @@ const ChatList: React.FC = () => {
     useEffect(() => {
         fetchChats()
         // eslint-disable-next-line
-    }, [])
+    }, [fetchChatsAgain])
 
     return (
         <div className={S.chatlist_main}>
@@ -73,7 +74,7 @@ const ChatList: React.FC = () => {
                     chats?.map((c: SingleChatData) => (
                         <ChatItem key={c._id} chat={c} />
                     ))}
-                {isChatsFetching && <UserSkeleton />}
+                {!chats && isChatsFetching ? <UserSkeleton /> : null}
                 <AnimatePresence
                     initial={false}
                     onExitComplete={() => null}

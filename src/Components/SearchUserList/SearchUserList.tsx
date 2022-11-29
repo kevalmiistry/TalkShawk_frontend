@@ -3,7 +3,6 @@ import React from 'react'
 import UserItem from '../UserItem/UserItem'
 import S from './SearchUserList.module.scss'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import UserSkeleton from '../UserSkeleton/UserSkeleton'
 
 type TProp = {
     searchResults: UserData[]
