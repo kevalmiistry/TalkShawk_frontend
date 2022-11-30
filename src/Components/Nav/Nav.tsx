@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ChatState from '../../Context/ChatContext'
 import S from './Nav.module.scss'
 import talkshawk_logo from '../../Assets/talkshawk_logo.png'
@@ -8,12 +8,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import ModalOverlay from '../ModalOverlay/ModalOverlay'
 import Profile from '../Profile/Profile'
+import CreateGroup from '../CreateGroup/CreateGroup'
 
 const Nav: React.FC = () => {
-    const { user } = ChatState()
-    const [menuOpen, setMenuOpen] = React.useState(false)
+    const { user, setFetchChatsAgain } = ChatState()
+    const [menuOpen, setMenuOpen] = useState(false)
 
-    const [isProfileModalOpen, setIsProfileModalOpen] = React.useState(false)
+    const [isProfileModalOpen, setIsProfileModalOpen] = useState(false)
+    const [isGroupModalOpen, setIsGroupModalOpen] = useState(false)
 
     const nev = useNavigate()
     const handleLogOut = () => {
@@ -24,9 +26,7 @@ const Nav: React.FC = () => {
         <div
             className={S.nav_main}
             onClick={() => {
-                if (menuOpen) {
-                    setMenuOpen(false)
-                }
+                if (menuOpen) setMenuOpen(false)
             }}
         >
             <div className={S.user_profile}>
@@ -59,9 +59,20 @@ const Nav: React.FC = () => {
                     )}
                 </AnimatePresence>
             </div>
-            <img className={S.logo} src={talkshawk_logo} alt="" />
+
+            <img
+                className={S.logo}
+                src={talkshawk_logo}
+                alt="TalkShawk Logo"
+                onClick={() => setFetchChatsAgain((p) => !p)}
+            />
+
             <div title="Create Group">
-                <FontAwesomeIcon icon={faUserGroup} />
+                <FontAwesomeIcon
+                    className={S.group_icon}
+                    icon={faUserGroup}
+                    onClick={() => setIsGroupModalOpen(true)}
+                />
             </div>
             <AnimatePresence
                 initial={false}
@@ -76,6 +87,24 @@ const Nav: React.FC = () => {
                     >
                         <Profile
                             setIsProfileModalOpen={setIsProfileModalOpen}
+                        />
+                    </ModalOverlay>
+                )}
+            </AnimatePresence>
+            {/*  */}
+            <AnimatePresence
+                initial={false}
+                onExitComplete={() => null}
+                exitBeforeEnter={true}
+            >
+                {isGroupModalOpen && (
+                    <ModalOverlay
+                        initial={{ scale: 0, transformOrigin: 'top right' }}
+                        animate={{ scale: 1 }}
+                        exit={{ scale: 0, transformOrigin: 'top right' }}
+                    >
+                        <CreateGroup
+                            setIsGroupModalOpen={setIsGroupModalOpen}
                         />
                     </ModalOverlay>
                 )}

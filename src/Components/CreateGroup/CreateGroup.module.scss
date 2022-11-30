@@ -1,0 +1,84 @@
+.group_main {
+    min-width: 350px;
+    width: 650px;
+    background-color: #000;
+    border-radius: 1rem;
+    padding: 2rem;
+    height: 90vh;
+    // overflow: hidden;
+    .head_wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .chatname_input {
+        width: 80%;
+        font-size: 1.25rem;
+        outline: none;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        margin-block: 1.5rem;
+        background-color: #333;
+        border-radius: 1rem;
+        color: #fff;
+    }
+    .pic_wrapper {
+        display: flex;
+        justify-content: flex-start;
+        gap: 2.5rem;
+        align-items: center;
+        img {
+            border-radius: 50vw;
+            width: 5rem;
+        }
+        .upload_btn {
+            background-color: #fff;
+            color: #000;
+            font-weight: 600;
+        }
+    }
+    .selected_list {
+        // border: 1px solid red;
+        margin-top: 1rem;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.5rem;
+        overflow-x: auto;
+        width: 100%;
+    }
+    .search_wrapper {
+        margin-top: 0.5rem;
+        border: 1px solid #111;
+        border-radius: 10px;
+        overflow: hidden;
+        .list {
+            height: 14rem;
+            width: 100%;
+            overflow-y: scroll;
+        }
+    }
+    .create_btn {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        padding: 0.5rem;
+        button {
+            background-color: teal;
+        }
+    }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .group_main {
+        .chatname_input {
+            width: 100%;
+        }
+        .search_wrapper {
+            margin-top: 1.5rem;
+            .list {
+                height: 19rem;
+            }
+        }
+    }
+}
