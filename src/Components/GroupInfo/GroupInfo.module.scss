@@ -1,0 +1,107 @@
+.groupinfo_main {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    padding: 1rem;
+    .head_wrapper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+    }
+    .img_container {
+        margin-inline: auto;
+        width: 35%;
+        aspect-ratio: 1/1;
+        .img {
+            width: 100%;
+            display: block;
+            margin-inline: auto;
+            border-radius: 50vw;
+            margin-top: 1rem;
+        }
+    }
+    .group_name {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        text-align: center;
+        margin-top: 1rem;
+        font-size: 2.5rem;
+        .name_input {
+            font-size: 1.5rem;
+            padding: 0.75rem;
+            width: 40%;
+            outline: none;
+            border: none;
+            background-color: #222;
+            color: #fff;
+            border-radius: 1rem;
+        }
+    }
+    .members {
+        margin-top: 1rem;
+        font-size: 1.75rem;
+        user-select: none;
+        ul {
+            color: #fff;
+            .you {
+                margin-top: 1rem;
+                font-size: 1.1rem;
+                text-align: center;
+                font-size: #f4f4f4;
+            }
+        }
+    }
+    .search_wrapper {
+        margin-top: 1.5rem;
+        border: 1px solid #111;
+        border-radius: 10px;
+        overflow: hidden;
+        .list {
+            max-height: 40vh;
+            width: 100%;
+            overflow-y: scroll;
+        }
+    }
+    .leave_group {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content: flex-end;
+        .btn {
+            background-color: red;
+        }
+    }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .groupinfo_main {
+        .head_wrapper {
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+        .img_container {
+            width: 60%; //
+            margin-top: 2rem; //
+        }
+        .group_name {
+            font-size: 1.85rem; //
+            .name_input {
+                width: 80%;
+                font-size: 1.25rem;
+                padding: 0.75rem;
+            }
+        }
+        .members {
+            font-size: 1.5rem; //
+            ul {
+                margin-top: 1.25rem; //
+                .you {
+                    font-size: 0.9rem; //
+                }
+            }
+        }
+    }
+}

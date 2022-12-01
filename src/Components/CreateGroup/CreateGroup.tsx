@@ -18,7 +18,7 @@ type TProp = {
 const CreateGroup: FC<TProp> = ({ setIsGroupModalOpen }) => {
     const [animationParent] = useAutoAnimate<HTMLUListElement>()
 
-    const { user, setFetchChatsAgain, setSelectedChat, setChats } = ChatState()
+    const { user, setSelectedChat, setChats } = ChatState()
 
     const [chatName, setChatName] = useState<string>('')
 
@@ -87,7 +87,6 @@ const CreateGroup: FC<TProp> = ({ setIsGroupModalOpen }) => {
                 setSelectedChat(data)
                 setIsGroupModalOpen(false)
             }
-            // setFetchChatsAgain((p) => !p)
             setIsCreating(false)
         } catch (error) {
             console.error(error)
@@ -143,7 +142,7 @@ const CreateGroup: FC<TProp> = ({ setIsGroupModalOpen }) => {
                         isSearching={isSearching}
                         onSearch={onSearch}
                     />
-                    <div className={S.list}>
+                    <ul className={S.list} ref={animationParent}>
                         {searchResults.map((u: UserData) => (
                             <UserItem
                                 key={u._id}
@@ -151,7 +150,7 @@ const CreateGroup: FC<TProp> = ({ setIsGroupModalOpen }) => {
                                 handleFunction={() => addToList(u)}
                             />
                         ))}
-                    </div>
+                    </ul>
                 </div>
                 {/*  */}
                 <AnimatePresence

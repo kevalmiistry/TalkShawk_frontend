@@ -22,9 +22,6 @@ const ModalOverlay: React.FC<IProp> = ({
                 initial={initial ? initial : { opacity: 0 }}
                 animate={animate ? animate : { opacity: 1 }}
                 exit={exit ? exit : { opacity: 0 }}
-                // initial={{ opacity: 0 }}
-                // animate={{ opacity: 1 }}
-                // exit={{ opacity: 0 }}
                 className={S.overlay_main}
             >
                 {children}

@@ -70,11 +70,11 @@ const ChatList: React.FC = () => {
                 isSearching={isSearching}
             />
             <div className={S.list}>
+                {!chats && isChatsFetching ? <UserSkeleton /> : null}
                 {!isChatsFetching &&
                     chats?.map((c: SingleChatData) => (
                         <ChatItem key={c._id} chat={c} />
                     ))}
-                {!chats && isChatsFetching ? <UserSkeleton /> : null}
                 <AnimatePresence
                     initial={false}
                     onExitComplete={() => null}
