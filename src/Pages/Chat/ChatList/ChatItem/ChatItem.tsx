@@ -24,7 +24,11 @@ const ChatItem: React.FC<TProp> = ({ chat }) => {
                 <p className={S.name}>{name}</p>
                 <p className={S.latest_msg}>
                     {chat?.latestMessage ? (
-                        chat?.latestMessage.content
+                        chat?.latestMessage.content.length > 35 ? (
+                            chat?.latestMessage.content.substring(0, 34) + '...'
+                        ) : (
+                            chat?.latestMessage.content
+                        )
                     ) : (
                         <span>No latest Message!</span>
                     )}

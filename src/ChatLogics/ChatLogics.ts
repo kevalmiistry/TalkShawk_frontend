@@ -5,3 +5,19 @@ export const getOppositeUser = (users: UserData[], loggedUser: UserData) => {
         return users[0]
     }
 }
+
+export const showAvatar = (
+    messages: TMessage[],
+    m: TMessage,
+    i: number,
+    user: UserData
+): boolean => {
+    if (
+        m?.sender?._id !== user?._id &&
+        (messages[i + 1]?.sender?._id === user?._id || !messages[i + 1])
+    ) {
+        return true
+    } else {
+        return false
+    }
+}

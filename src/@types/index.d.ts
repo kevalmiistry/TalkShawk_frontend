@@ -6,16 +6,16 @@ declare interface UserData {
     pic: string
     token: string
 }
-type TLatestMessageSender = {
+declare type TMessageSender = {
     _id: string
     pic: string
     name: string
     email: string
     username: string
 }
-type TLatestMessage = {
+declare type TMessage = {
     _id: string
-    sender: TLatestMessageSender
+    sender: TMessageSender
     content: string
     chat: string
 }
@@ -26,5 +26,5 @@ declare interface SingleChatData {
     groupPic: string
     users: UserData[]
     groupAdmins: UserData[]
-    latestMessage?: TLatestMessage
+    latestMessage?: TMessage
 }
