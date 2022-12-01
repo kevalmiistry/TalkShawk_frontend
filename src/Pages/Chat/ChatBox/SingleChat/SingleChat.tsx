@@ -96,7 +96,10 @@ const SingleChat: FC<TProp> = () => {
                         />
                         <div
                             className={S.name_wrapper}
-                            onClick={() => setIsGrpModalOpen(true)}
+                            onClick={() => {
+                                selectedChat?.isGroupChat &&
+                                    setIsGrpModalOpen(true)
+                            }}
                         >
                             <img
                                 className={S.chat_pic}

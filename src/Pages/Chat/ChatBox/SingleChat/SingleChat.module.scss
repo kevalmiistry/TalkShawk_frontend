@@ -88,6 +88,13 @@
         }
         .type_field {
             height: 8%;
+            &::after {
+                content: 'Swipe Down from here to see chat head';
+                text-align: center;
+                font-size: 1rem;
+                margin-top: 2rem;
+                display: block;
+            }
         }
     }
 }
