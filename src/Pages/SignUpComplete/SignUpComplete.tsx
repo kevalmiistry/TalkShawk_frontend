@@ -1,7 +1,7 @@
 import { useEffect, FC, useState } from 'react'
 import S from './SignUpComplete.module.scss'
 import successGIF from '../../Assets/success.gif'
-import talkshawk_logo from '../../Assets/talkshawk_logo.png'
+import TSLogo from '../../Assets/TalkShawk_Logo.png'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
@@ -33,7 +33,7 @@ const SignUpComplete: FC = () => {
                 >
                     <div className={S.logo}>
                         <h1>TalkShawk</h1>
-                        <img src={talkshawk_logo} alt="TalkShawk Main Logo" />
+                        <img src={TSLogo} alt="TalkShawk Main Logo" />
                     </div>
                     <div className={S.box}>
                         <h1>SignUp Complete!🥳</h1>
