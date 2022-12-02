@@ -16,6 +16,7 @@ type FormData = {
 }
 
 const Login: FC<TProp> = ({ isSubmitting, setIsSubmitting }) => {
+    document.title = 'TalkShawk | Login'
     const [type, setType] = useState('email')
     const nev = useNavigate()
     const { showToast } = ToastState()

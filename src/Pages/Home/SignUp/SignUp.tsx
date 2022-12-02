@@ -30,6 +30,7 @@ const INITIAL_DATA = {
 }
 
 const SignUp: FC<TProp> = ({ isSubmitting, setIsSubmitting }) => {
+    document.title = 'TalkShawk | Signup'
     const updateFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }

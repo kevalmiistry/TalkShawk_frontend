@@ -8,6 +8,7 @@ import ChatState from '../../Context/ChatContext'
 import { useNavigate } from 'react-router-dom'
 
 const ChatPage: FC = () => {
+    document.title = 'TalkShawk | Chats'
     const { user, setUser, selectedChat } = ChatState()
     const nev = useNavigate()
     React.useEffect(() => {
