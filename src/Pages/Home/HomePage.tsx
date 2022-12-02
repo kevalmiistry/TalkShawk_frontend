@@ -3,7 +3,7 @@ import style from './Home.module.scss'
 import Login from './Login/Login'
 import SignUp from './SignUp/SignUp'
 import { motion, AnimatePresence } from 'framer-motion'
-import TSLogo from '../../Assets/talkshawk_logo.png'
+import TSLogo from '../../Assets/TalkShawk_Logo.png'
 import { useNavigate } from 'react-router-dom'
 import ChatState from '../../Context/ChatContext'
 

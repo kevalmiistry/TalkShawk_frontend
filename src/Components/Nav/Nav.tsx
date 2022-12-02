@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ChatState from '../../Context/ChatContext'
 import S from './Nav.module.scss'
-import talkshawk_logo from '../../Assets/talkshawk_logo.png'
+import talkshawk_logo from '../../Assets/TalkShawk_Logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserGroup } from '@fortawesome/free-solid-svg-icons'
 import { motion, AnimatePresence } from 'framer-motion'
