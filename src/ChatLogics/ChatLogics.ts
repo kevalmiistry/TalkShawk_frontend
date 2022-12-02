@@ -14,7 +14,7 @@ export const showAvatar = (
 ): boolean => {
     if (
         m?.sender?._id !== user?._id &&
-        (messages[i + 1]?.sender?._id === user?._id || !messages[i + 1])
+        (messages[i + 1]?.sender?._id !== m?.sender._id || !messages[i + 1])
     ) {
         return true
     } else {

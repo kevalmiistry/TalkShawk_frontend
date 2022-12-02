@@ -8,7 +8,9 @@ import UserSkeleton from '../../../Components/UserSkeleton/UserSkeleton'
 import ChatState from '../../../Context/ChatContext'
 import ChatItem from './ChatItem/ChatItem'
 import S from './ChatList.module.scss'
+import io, { Socket } from 'socket.io-client'
 
+let socket: Socket
 const ChatList: React.FC = () => {
     const [search, setSearch] = useState('')
     const [isSearchOnFocus, setIsSearchOnFocus] = useState(false)
@@ -16,7 +18,41 @@ const ChatList: React.FC = () => {
     const [isSearching, setIsSearching] = useState(false)
     const [isChatsFetching, setIsChatsFetching] = useState(false)
 
-    const { user, chats, setChats, fetchChatsAgain } = ChatState()
+    const {
+        user,
+        chats,
+        setChats,
+        fetchChatsAgain,
+        setFetchChatsAgain,
+        selectedChat,
+        setIsSocketConnected,
+    } = ChatState()
+
+    useEffect(() => {
+        if (user) {
+            if (!process.env.REACT_APP_API_ENDPOINT)
+                return console.error('ENDPOINT NOT AVAILABLE')
+
+            socket = io(process.env.REACT_APP_API_ENDPOINT)
+            socket.emit('online', user)
+            socket.on('__online__', () => setIsSocketConnected(true))
+        }
+        // eslint-disable-next-line
+    }, [user])
+
+    useEffect(() => {
+        socket.on(
+            'commonMessageRecieved',
+            (newMessage: TMessage, userID: string) => {
+                if (userID !== user?._id) return
+
+                if (selectedChat?._id !== newMessage.chat._id) {
+                    setFetchChatsAgain((p) => !p)
+                }
+            }
+        )
+        // eslint-disable-next-line
+    }, [])
 
     const onSearch = async (query: string) => {
         if (query === '') {

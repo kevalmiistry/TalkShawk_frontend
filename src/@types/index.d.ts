@@ -10,14 +10,13 @@ declare type TMessageSender = {
     _id: string
     pic: string
     name: string
-    email: string
     username: string
 }
 declare type TMessage = {
     _id: string
     sender: TMessageSender
     content: string
-    chat: string
+    chat: SingleChatData
 }
 declare interface SingleChatData {
     _id: string

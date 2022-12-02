@@ -22,4 +22,22 @@
             max-width: 70%;
         }
     }
+    .typing_wrapper {
+        margin-top: 0.75rem;
+        margin-bottom: 0.5rem;
+        width: fit-content;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0.5rem;
+        .typers_pic {
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50vw;
+        }
+        .typing_dots {
+            border-radius: 50vw;
+            width: 3rem;
+        }
+    }
 }

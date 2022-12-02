@@ -11,10 +11,14 @@ import { ToastState } from '../../../../Context/ToastContext'
 import ScollableChat from './ScollableChat/ScollableChat'
 import S from './SingleChat.module.scss'
 import axios from 'axios'
+import io, { Socket } from 'socket.io-client'
 
+let socket: Socket, selectedChatCompare: SingleChatData | null
 type TProp = {}
 const SingleChat: FC<TProp> = () => {
-    const { user, selectedChat, setSelectedChat } = ChatState()
+    const { user, selectedChat, setSelectedChat, isSocketConnected } =
+        ChatState()
+
     const { showToast } = ToastState()
 
     const [isGrpModalOpen, setIsGrpModalOpen] = useState(false)
@@ -22,6 +26,10 @@ const SingleChat: FC<TProp> = () => {
     const [isMessagesLoading, setIsMessagesLoading] = useState(false)
     const [messages, setMessages] = useState<TMessage[]>([])
     const [newMessageToSend, setNewMessageToSend] = useState('')
+
+    const [typing, setTyping] = useState(false)
+    const [isSomeOneTyping, setIsSomeOneTyping] = useState(false)
+    const [typersPic, setTypersPic] = useState('')
 
     let name: string = ''
     let pic: string = ''
@@ -35,6 +43,81 @@ const SingleChat: FC<TProp> = () => {
             : getOppositeUser(selectedChat.users, user).pic
     }
 
+    const handleSendMessage = async (
+        e: React.KeyboardEvent<HTMLInputElement>
+    ) => {
+        if (e.key === 'Enter' && newMessageToSend) {
+            try {
+                const url = process.env.REACT_APP_API_URL + `/message/create`
+                const config = { headers: { 'auth-token': user?.token } }
+                const dataToSend = {
+                    chatId: selectedChat?._id,
+                    content: newMessageToSend,
+                }
+                const { data } = await axios.post(url, dataToSend, config)
+                setNewMessageToSend('')
+                socket.emit('newMessage', data)
+                setMessages((prev: TMessage[]) => [...prev, data])
+            } catch (error) {
+                showToast({
+                    message: 'Something went wrong!',
+                    show: true,
+                    status: 'error',
+                })
+            }
+        }
+    }
+
+    // useEffect to establish connection with socket
+    useEffect(() => {
+        if (!isSocketConnected) return console.error('Socket is not connected')
+
+        if (!process.env.REACT_APP_API_ENDPOINT)
+            return console.error('ENDPOINT NOT AVAILABLE')
+
+        socket = io(process.env.REACT_APP_API_ENDPOINT)
+        socket.emit('joinChat', selectedChat?._id)
+        socket.on('typing', (pic) => {
+            setIsSomeOneTyping(true)
+            setTypersPic(pic)
+        })
+        socket.on('stopTyping', () => setIsSomeOneTyping(false))
+        // eslint-disable-next-line
+    }, [])
+
+    const handleTyping = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewMessageToSend(e.target.value)
+
+        // Typing indicator logic
+        if (!isSocketConnected) {
+            console.log('Socket no connect!')
+            return
+        }
+
+        if (!typing) {
+            setTyping(true)
+            socket.emit('typing', selectedChat?._id, user?.pic)
+        }
+
+        if (e.target.value === '') {
+            setTyping(false)
+            socket.emit('stopTyping', selectedChat?._id)
+        }
+
+        let lastTypingTime = new Date().getTime()
+        let timeLength = 2000
+
+        setTimeout(() => {
+            let timeNow = new Date().getTime()
+            let timeDiff = timeNow - lastTypingTime
+
+            if (timeDiff >= timeLength && typing) {
+                socket.emit('stopTyping', selectedChat?._id)
+            }
+            setTyping(false)
+        }, timeLength)
+    }
+
     const fetchMessages = async () => {
         try {
             setIsMessagesLoading(true)
@@ -46,6 +129,7 @@ const SingleChat: FC<TProp> = () => {
             const { data } = await axios.get(url, config)
             setMessages(data)
             setIsMessagesLoading(false)
+            socket.emit('joinChat', selectedChat?._id)
         } catch (error) {
             showToast({
                 message: 'Something went wrong!',
@@ -55,34 +139,25 @@ const SingleChat: FC<TProp> = () => {
         }
     }
 
-    const handleSendMessage = async (
-        e: React.KeyboardEvent<HTMLInputElement>
-    ) => {
-        if (e.key === 'Enter') {
-            try {
-                const url = process.env.REACT_APP_API_URL + `/message/create`
-                const config = { headers: { 'auth-token': user?.token } }
-                const dataToSend = {
-                    chatId: selectedChat?._id,
-                    content: newMessageToSend,
-                }
-                const { data } = await axios.post(url, dataToSend, config)
-                setMessages((prev: TMessage[]) => [...prev, data])
-                setNewMessageToSend('')
-            } catch (error) {
-                showToast({
-                    message: 'Something went wrong!',
-                    show: true,
-                    status: 'error',
-                })
-            }
-        }
-    }
-
     useEffect(() => {
         fetchMessages()
+        selectedChatCompare = selectedChat
         // eslint-disable-next-line
     }, [selectedChat])
+
+    useEffect(() => {
+        socket.on('messageRecieved', (newMessageRecieved: TMessage) => {
+            if (
+                !selectedChatCompare ||
+                selectedChatCompare?._id !== newMessageRecieved.chat._id
+            ) {
+                // do nothing
+            } else {
+                setMessages((prev) => [...prev, newMessageRecieved])
+            }
+        })
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <>
@@ -125,7 +200,11 @@ const SingleChat: FC<TProp> = () => {
                                 />
                             </div>
                         ) : (
-                            <ScollableChat messages={messages} />
+                            <ScollableChat
+                                isSomeOneTyping={isSomeOneTyping}
+                                typersPic={typersPic}
+                                messages={messages}
+                            />
                         )}
                     </div>
                 </div>
@@ -133,7 +212,7 @@ const SingleChat: FC<TProp> = () => {
                 <div className={S.type_field}>
                     <input
                         onKeyDown={handleSendMessage}
-                        onChange={(e) => setNewMessageToSend(e.target.value)}
+                        onChange={handleTyping}
                         value={newMessageToSend}
                         type="text"
                         placeholder="Type in your message"

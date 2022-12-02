@@ -12,11 +12,11 @@ const ChatItem: React.FC<TProp> = ({ chat }) => {
 
     const name = chat.isGroupChat
         ? chat.chatName
-        : getOppositeUser(chat.users, user!).name
+        : getOppositeUser(chat.users, user!)?.name
 
     const pic = chat.isGroupChat
         ? chat.groupPic
-        : getOppositeUser(chat.users, user!).pic
+        : getOppositeUser(chat.users, user!)?.pic
     return (
         <li className={S.chatitem} onClick={() => setSelectedChat(chat)}>
             <img src={pic} alt="chat profile pic" />
