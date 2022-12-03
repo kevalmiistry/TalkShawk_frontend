@@ -1,7 +1,7 @@
 import { useEffect, FC, useState } from 'react'
 import S from './SignUpComplete.module.scss'
 import successGIF from '../../Assets/success.gif'
-import TSLogo from '../../Assets/TalkShawk_Logo.png'
+import TSLogo from '../../Assets/talkshawk_logo.png'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
