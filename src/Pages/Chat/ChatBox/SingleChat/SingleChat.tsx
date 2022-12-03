@@ -47,24 +47,34 @@ const SingleChat: FC<TProp> = () => {
         e: React.KeyboardEvent<HTMLInputElement>
     ) => {
         if (e.key === 'Enter' && newMessageToSend) {
-            try {
-                const url = process.env.REACT_APP_API_URL + `/message/create`
-                const config = { headers: { 'auth-token': user?.token } }
-                const dataToSend = {
-                    chatId: selectedChat?._id,
-                    content: newMessageToSend,
-                }
-                const { data } = await axios.post(url, dataToSend, config)
-                setNewMessageToSend('')
-                socket.emit('newMessage', data)
-                setMessages((prev: TMessage[]) => [...prev, data])
-            } catch (error) {
-                showToast({
-                    message: 'Something went wrong!',
-                    show: true,
-                    status: 'error',
-                })
+            helper()
+        }
+    }
+
+    const handleSendButtonClick = async () => {
+        if (newMessageToSend) {
+            helper()
+        }
+    }
+
+    const helper = async () => {
+        try {
+            const url = process.env.REACT_APP_API_URL + `/message/create`
+            const config = { headers: { 'auth-token': user?.token } }
+            const dataToSend = {
+                chatId: selectedChat?._id,
+                content: newMessageToSend,
             }
+            const { data } = await axios.post(url, dataToSend, config)
+            setNewMessageToSend('')
+            socket.emit('newMessage', data)
+            setMessages((prev: TMessage[]) => [...prev, data])
+        } catch (error) {
+            showToast({
+                message: 'Something went wrong!',
+                show: true,
+                status: 'error',
+            })
         }
     }
 
@@ -210,14 +220,22 @@ const SingleChat: FC<TProp> = () => {
                 </div>
                 {/*  */}
                 <div className={S.type_field}>
-                    <input
-                        onKeyDown={handleSendMessage}
-                        onChange={handleTyping}
-                        value={newMessageToSend}
-                        type="text"
-                        placeholder="Type in your message"
-                        name="message"
-                    />
+                    <div className={S.msg_input_wrapper}>
+                        <input
+                            onKeyDown={handleSendMessage}
+                            onChange={handleTyping}
+                            value={newMessageToSend}
+                            type="text"
+                            placeholder="Type in your message"
+                            name="message"
+                        />
+                        <button
+                            onClick={handleSendButtonClick}
+                            className={`btn ${S.send_btn}`}
+                        >
+                            Send
+                        </button>
+                    </div>
                 </div>
             </div>
             {/*  */}
