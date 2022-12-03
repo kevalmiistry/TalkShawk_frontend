@@ -6,10 +6,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import TSLogo from '../../Assets/talkshawk_logo.png'
 import { useNavigate } from 'react-router-dom'
 import ChatState from '../../Context/ChatContext'
+import ModalOverlay from '../../Components/ModalOverlay/ModalOverlay'
+import ForgetPassModal from './ForgetPassModal/ForgetPassModal'
 
 const HomePage: FC = () => {
     const [isLogin, setIsLogin] = useState(true)
     const [isSignUp, setIsSignUp] = useState(false)
+
+    const [forgetPassModalOpen, setForgetPassModalOpen] = useState(false)
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -88,16 +92,39 @@ const HomePage: FC = () => {
                 </AnimatePresence>
 
                 {!isSubmitting && (
-                    <motion.button
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        onClick={handleSwitch}
-                        className={style.link}
-                    >
-                        {isLogin ? 'Signup' : 'Login'}?
-                    </motion.button>
+                    <>
+                        <motion.button
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            onClick={handleSwitch}
+                            className={style.link}
+                        >
+                            {isLogin ? 'Signup' : 'Login'}?
+                        </motion.button>
+                        <motion.button
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            onClick={() => setForgetPassModalOpen(true)}
+                            className={style.link}
+                        >
+                            Forget Password?
+                        </motion.button>
+                    </>
                 )}
             </section>
+            <AnimatePresence
+                initial={false}
+                onExitComplete={() => null}
+                exitBeforeEnter={true}
+            >
+                {forgetPassModalOpen && (
+                    <ModalOverlay>
+                        <ForgetPassModal
+                            setForgetPassModalOpen={setForgetPassModalOpen}
+                        />
+                    </ModalOverlay>
+                )}
+            </AnimatePresence>
         </>
     )
 }

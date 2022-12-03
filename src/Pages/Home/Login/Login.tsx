@@ -60,19 +60,24 @@ const Login: FC<TProp> = ({ isSubmitting, setIsSubmitting }) => {
     }
 
     const emailStyle = {
-        border: type === 'email' ? '1px solid teal' : '1px solid #111',
+        border: type === 'email' ? '1px solid teal' : '1px solid #000',
     }
     const usernameStyle = {
-        border: type === 'username' ? '1px solid teal' : '1px solid #111',
+        border: type === 'username' ? '1px solid teal' : '1px solid #000',
     }
     return (
         <div className={`${style.login_main}`}>
             <form className={style.form}>
                 <div className="flex around">
-                    <span style={emailStyle} onClick={() => setType('email')}>
+                    <span
+                        style={emailStyle}
+                        className="pointer"
+                        onClick={() => setType('email')}
+                    >
                         Email
                     </span>
                     <span
+                        className="pointer"
                         style={usernameStyle}
                         onClick={() => setType('username')}
                     >

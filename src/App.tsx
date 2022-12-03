@@ -5,6 +5,7 @@ import { ChatProvider } from './Context/ChatContext'
 import ToastProvider from './Context/ToastContext'
 import './global.scss'
 import ChatPage from './Pages/Chat/ChatPage'
+import ForgetPassword from './Pages/ForgetPassword/ForgetPassword'
 import HomePage from './Pages/Home/HomePage'
 import SignUpComplete from './Pages/SignUpComplete/SignUpComplete'
 import VerifyEmail from './Pages/VerifyEmail/VerifyEmail'
@@ -26,6 +27,10 @@ const App: FC = () => {
                             <Route
                                 path="/verifyemail/:token"
                                 element={<VerifyEmail />}
+                            />
+                            <Route
+                                path="/forgetpassword/:token"
+                                element={<ForgetPassword />}
                             />
                         </Routes>
                     </ChatProvider>
