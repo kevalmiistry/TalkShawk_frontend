@@ -19,7 +19,7 @@ const VerifyEmail: FC = () => {
 
     async function fetchAPI() {
         setIsLoading(true)
-        let url = 'http://localhost:5000/api/user/verify'
+        let url = process.env.REACT_APP_API_URL + '/user/verify'
         const config = {
             headers: {
                 'auth-token': token,
