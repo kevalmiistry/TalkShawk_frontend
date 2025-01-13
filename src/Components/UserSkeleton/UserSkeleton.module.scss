@@ -1,39 +1,39 @@
 .skele_main {
-    .skele_item {
-        padding: 0.5rem 1rem;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 1rem;
-        .img {
-            width: 3.5rem;
-            height: 3.5rem;
-            border-radius: 50vw;
-            animation: wave 500ms linear infinite alternate;
-        }
-        .wrapper {
-            .name {
-                height: 1.1rem;
-                width: 10rem;
-                margin-bottom: 0.5rem;
-                border-radius: 4px;
-                animation: wave 500ms linear infinite alternate;
-            }
-            .username {
-                border-radius: 4px;
-                animation: wave 500ms linear infinite alternate;
-                height: 0.9rem;
-                width: 15rem;
-            }
-        }
+  .skele_item {
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    .img {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50vw;
+      animation: wave 500ms linear infinite alternate;
     }
+    .wrapper {
+      .name {
+        height: 1.1rem;
+        width: 10rem;
+        margin-bottom: 0.5rem;
+        border-radius: 4px;
+        animation: wave 500ms linear infinite alternate;
+      }
+      .username {
+        border-radius: 4px;
+        animation: wave 500ms linear infinite alternate;
+        height: 0.9rem;
+        width: 15rem;
+      }
+    }
+  }
 }
 
 @keyframes wave {
-    0% {
-        background-color: #333;
-    }
-    100% {
-        background-color: #777;
-    }
+  0% {
+    background-color: #333;
+  }
+  100% {
+    background-color: #777;
+  }
 }

@@ -1,65 +1,65 @@
 .profile_main {
-    background-color: #000;
-    padding: 2rem;
-    border-radius: 1rem;
-    min-width: 350px;
-    max-width: 550px;
-    .head_wrapper {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        user-select: none;
-        .icon {
-            cursor: pointer;
-        }
+  background-color: #000;
+  padding: 2rem;
+  border-radius: 1rem;
+  min-width: 350px;
+  max-width: 550px;
+  .head_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    .icon {
+      cursor: pointer;
     }
-    .wrapper {
-        margin-top: 2rem;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 1rem;
-        user-select: none;
-        img {
-            border-radius: 50vw;
-            width: 25%;
-        }
-        .name {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        .username {
-            background-color: teal;
-            width: fit-content;
-            padding: 0px 5px;
-            border-radius: 5px;
-            padding-bottom: 3px;
-        }
+  }
+  .wrapper {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    user-select: none;
+    img {
+      border-radius: 50vw;
+      width: 25%;
     }
-    .email {
-        // font-size: 1rem;
-        margin-top: 1rem;
+    .name {
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
+    .username {
+      background-color: teal;
+      width: fit-content;
+      padding: 0px 5px;
+      border-radius: 5px;
+      padding-bottom: 3px;
+    }
+  }
+  .email {
+    // font-size: 1rem;
+    margin-top: 1rem;
+  }
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-    .profile_main {
-        width: 90%;
-        .wrapper {
-            img {
-                width: 35%;
-            }
-            .name {
-                font-size: 1.35rem;
-                margin-bottom: 0.5rem;
-            }
-            .username {
-                font-size: 0.9rem;
-            }
-        }
-        .email {
-            font-size: 1.15rem;
-            margin-top: 1.25rem;
-        }
+  .profile_main {
+    width: 90%;
+    .wrapper {
+      img {
+        width: 35%;
+      }
+      .name {
+        font-size: 1.35rem;
+        margin-bottom: 0.5rem;
+      }
+      .username {
+        font-size: 0.9rem;
+      }
     }
+    .email {
+      font-size: 1.15rem;
+      margin-top: 1.25rem;
+    }
+  }
 }

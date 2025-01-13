@@ -1,43 +1,43 @@
 .scollable_main {
-    padding: 0.4rem;
-    height: 100%;
-    .content_wrapper {
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-end;
-        gap: 0.35rem;
-        .sender_pic {
-            width: 1.75rem;
-            height: 1.75rem;
-            border-radius: 50vw;
-        }
-        .content {
-            background-color: teal;
-            padding: 0;
-            padding: 0.5rem 0.75rem;
-            font-size: 1rem;
-            border-radius: 1.5rem;
-            margin-block: 1px;
-            width: fit-content;
-            max-width: 70%;
-        }
+  padding: 0.4rem;
+  height: 100%;
+  .content_wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 0.35rem;
+    .sender_pic {
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50vw;
     }
-    .typing_wrapper {
-        margin-top: 0.75rem;
-        margin-bottom: 0.5rem;
-        width: fit-content;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 0.5rem;
-        .typers_pic {
-            width: 1.75rem;
-            height: 1.75rem;
-            border-radius: 50vw;
-        }
-        .typing_dots {
-            border-radius: 50vw;
-            width: 3rem;
-        }
+    .content {
+      background-color: teal;
+      padding: 0;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      border-radius: 1.5rem;
+      margin-block: 1px;
+      width: fit-content;
+      max-width: 70%;
     }
+  }
+  .typing_wrapper {
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    width: fit-content;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    .typers_pic {
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50vw;
+    }
+    .typing_dots {
+      border-radius: 50vw;
+      width: 3rem;
+    }
+  }
 }

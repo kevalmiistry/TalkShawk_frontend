@@ -1,69 +1,69 @@
 .container {
-    width: 100vw;
-    height: 100vh;
-    .container_cropper {
-        height: 90%;
-        padding: 0.5rem;
-        .cropper {
-            position: relative;
-            height: 100%;
-            width: 100%;
-        }
+  width: 100vw;
+  height: 100vh;
+  .container_cropper {
+    height: 90%;
+    padding: 0.5rem;
+    .cropper {
+      position: relative;
+      height: 100%;
+      width: 100%;
     }
-    .container_btn {
-        height: 10%;
-        border: 1px soldi blue;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
+  }
+  .container_btn {
+    height: 10%;
+    border: 1px soldi blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 
-        .file {
-            display: none;
-        }
-        .btn_select {
-            border-top-left-radius: 50vw;
-            border-bottom-left-radius: 50vw;
-        }
-        .btn_done {
-            background-color: limegreen;
-            border-top-right-radius: 50vw;
-            border-bottom-right-radius: 50vw;
-        }
-        .btn_close {
-            background-color: red;
-            border-radius: 50vw;
-        }
+    .file {
+      display: none;
     }
+    .btn_select {
+      border-top-left-radius: 50vw;
+      border-bottom-left-radius: 50vw;
+    }
+    .btn_done {
+      background-color: limegreen;
+      border-top-right-radius: 50vw;
+      border-bottom-right-radius: 50vw;
+    }
+    .btn_close {
+      background-color: red;
+      border-radius: 50vw;
+    }
+  }
 }
 
 .btn {
-    padding: 0.5rem 1rem;
-    font-size: 1.3rem;
-    background: none;
-    background-color: teal;
-    color: #222;
-    font-weight: 600;
-    border: none;
-    // border-radius: 50vw;
-    cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 1.3rem;
+  background: none;
+  background-color: teal;
+  color: #222;
+  font-weight: 600;
+  border: none;
+  // border-radius: 50vw;
+  cursor: pointer;
 }
 
 .spinner_img {
-    height: 1rem;
+  height: 1rem;
 }
 
 // .flex_btn_container{}
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-    .container {
-        .container_btn {
-            flex-direction: column;
-            gap: 5px;
-        }
+  .container {
+    .container_btn {
+      flex-direction: column;
+      gap: 5px;
     }
+  }
 }
 .container_btn {
-    .btn {
-        font-size: 1.2rem;
-    }
+  .btn {
+    font-size: 1.2rem;
+  }
 }

@@ -1,32 +1,32 @@
 .chatitem {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 0.5rem;
-    padding-inline: 1rem;
-    cursor: pointer;
-    div {
-        padding: 0.5rem;
-        padding-block: 1.5rem;
-        border-bottom: 1px solid #333;
-        width: 100%;
-        height: 5rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  padding-inline: 1rem;
+  cursor: pointer;
+  div {
+    padding: 0.5rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid #333;
+    width: 100%;
+    height: 5rem;
+  }
+  &:hover {
+    background-color: #222;
+  }
+  img {
+    width: 3.5rem;
+    border-radius: 50vw;
+  }
+  .name {
+    font-size: 1.1rem;
+  }
+  .latest_msg {
+    font-size: 0.9rem;
+    color: teal;
+    span {
+      font-style: italic;
     }
-    &:hover {
-        background-color: #222;
-    }
-    img {
-        width: 3.5rem;
-        border-radius: 50vw;
-    }
-    .name {
-        font-size: 1.1rem;
-    }
-    .latest_msg {
-        font-size: 0.9rem;
-        color: teal;
-        span {
-            font-style: italic;
-        }
-    }
+  }
 }

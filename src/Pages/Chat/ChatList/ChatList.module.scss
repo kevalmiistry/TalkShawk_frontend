@@ -1,22 +1,22 @@
 .chatlist_main {
-    z-index: 100;
-    width: 35%;
-    border-right: 1px solid #333;
-    .list {
-        height: 90vh;
-        position: relative;
-        height: 82vh;
-        overflow-y: scroll;
-        // padding-inline: 1rem;
-    }
+  z-index: 100;
+  width: 35%;
+  border-right: 1px solid #333;
+  .list {
+    height: 90vh;
+    position: relative;
+    height: 82vh;
+    overflow-y: scroll;
+    // padding-inline: 1rem;
+  }
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-    .chatlist_main {
-        width: 100%;
-        border-right: none;
-        .list {
-            height: 90vh;
-        }
+  .chatlist_main {
+    width: 100%;
+    border-right: none;
+    .list {
+      height: 90vh;
     }
+  }
 }

@@ -1,71 +1,71 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 //
 $main-color: teal;
 //
 *,
 *::after,
 *::before {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 @font-face {
-    font-family: 'gold';
-    src: url('./Assets/GoldleafBold.ttf');
+  font-family: "gold";
+  src: url("./Assets/GoldleafBold.ttf");
 }
 // for Chrome-Safari
 ::-webkit-scrollbar {
-    width: 0;
+  width: 0;
 }
 
 // for FireFox
 @supports (scrollbar-width: none) {
-    * {
-        scrollbar-width: none;
-    }
+  * {
+    scrollbar-width: none;
+  }
 }
 
 body {
-    font-size: 22px;
-    font-family: 'Inter', sans-serif;
-    background-color: #000;
-    color: #fff;
+  font-size: 22px;
+  font-family: "Inter", sans-serif;
+  background-color: #000;
+  color: #fff;
 }
 
 .btn {
-    border: none;
-    border-radius: 50vw;
-    padding: 0.5rem 1rem;
-    font-size: 1.25rem;
-    cursor: pointer;
-    background: none;
-    outline: none;
-    color: #fff;
-    font-weight: 500;
+  border: none;
+  border-radius: 50vw;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  background: none;
+  outline: none;
+  color: #fff;
+  font-weight: 500;
 }
 
 .white {
-    color: #fff;
+  color: #fff;
 }
 
 .flex {
-    display: flex;
+  display: flex;
 }
 
 .between {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .around {
-    justify-content: space-around;
+  justify-content: space-around;
 }
 
 .disable {
-    opacity: 0.4;
-    cursor: not-allowed;
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
