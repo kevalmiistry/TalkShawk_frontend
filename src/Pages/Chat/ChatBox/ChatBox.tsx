@@ -17,11 +17,7 @@ const ChatBox: React.FC = () => {
                 exit={{ translateX: '100%' }}
                 className={S.chatbox_main}
             >
-                <AnimatePresence
-                    initial={false}
-                    onExitComplete={() => null}
-                    exitBeforeEnter={true}
-                >
+                <AnimatePresence mode="wait">
                     {!selectedChat && (
                         <motion.div
                             className={S.svg}
@@ -33,7 +29,7 @@ const ChatBox: React.FC = () => {
                             <div>
                                 <ChatSVG />
                             </div>
-                            <p>Click any of the chat to start chatting!</p>
+                            <p>Click any of the chat to start conversation!</p>
                         </motion.div>
                     )}
                     {/*  */}

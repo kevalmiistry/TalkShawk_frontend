@@ -32,7 +32,7 @@ const Login: FC<TProp> = ({ isSubmitting, setIsSubmitting }) => {
     }
 
     const handleLogin = async () => {
-        const url = process.env.REACT_APP_API_URL + '/user/login'
+        const url = import.meta.env.VITE_APP_API_URL + '/user/login'
         const dataToSend = {
             type: type,
             email_username:

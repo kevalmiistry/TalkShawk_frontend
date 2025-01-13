@@ -40,7 +40,7 @@ const CreateGroup: FC<TProp> = ({ setIsGroupModalOpen }) => {
             } else {
                 setIsSearching(true)
                 const url =
-                    process.env.REACT_APP_API_URL + `/user/?search=${query}`
+                    import.meta.env.VITE_APP_API_URL + `/user/?search=${query}`
                 const config = {
                     headers: { 'auth-token': user?.token },
                 }
@@ -69,7 +69,7 @@ const CreateGroup: FC<TProp> = ({ setIsGroupModalOpen }) => {
     const [isCreating, setIsCreating] = useState(false)
     const createGroupChat = async () => {
         try {
-            const url = process.env.REACT_APP_API_URL + '/chat/creategroup'
+            const url = import.meta.env.VITE_APP_API_URL + '/chat/creategroup'
             const config = {
                 headers: {
                     'auth-token': user?.token,
@@ -153,11 +153,7 @@ const CreateGroup: FC<TProp> = ({ setIsGroupModalOpen }) => {
                     </ul>
                 </div>
                 {/*  */}
-                <AnimatePresence
-                    initial={false}
-                    onExitComplete={() => null}
-                    exitBeforeEnter={true}
-                >
+                <AnimatePresence mode="wait">
                     {openModal && (
                         <ModalOverlay>
                             <CropAndUpload

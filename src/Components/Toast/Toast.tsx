@@ -8,11 +8,7 @@ const Toast: React.FC = () => {
     const { toast } = ToastState()
     return ReactDOM.createPortal(
         <>
-            <AnimatePresence
-                initial={false}
-                onExitComplete={() => null}
-                exitBeforeEnter={true}
-            >
+            <AnimatePresence mode="wait">
                 {toast.show && (
                     <motion.div
                         initial={{ translateY: '-100%', translateX: '-50%' }}

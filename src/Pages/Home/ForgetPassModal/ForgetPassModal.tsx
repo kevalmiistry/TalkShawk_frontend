@@ -30,7 +30,7 @@ const ForgetPassModal: FC<TProp> = ({ setForgetPassModalOpen }) => {
     const handleSubmit = async () => {
         try {
             setIsSubmitting(true)
-            const url = process.env.REACT_APP_API_URL + '/user/sendemail'
+            const url = import.meta.env.VITE_APP_API_URL + '/user/sendemail'
             const { data } = await axios.patch(url, { email: emailToSend })
             setData(data)
             setIsSubmitting(false)

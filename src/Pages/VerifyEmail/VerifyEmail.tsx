@@ -19,7 +19,7 @@ const VerifyEmail: FC = () => {
 
     async function fetchAPI() {
         setIsLoading(true)
-        let url = process.env.REACT_APP_API_URL + '/user/verify'
+        let url = import.meta.env.VITE_APP_API_URL + '/user/verify'
         const config = {
             headers: {
                 'auth-token': token,
@@ -51,11 +51,7 @@ const VerifyEmail: FC = () => {
                 height: '100vh',
             }}
         >
-            <AnimatePresence
-                initial={false}
-                exitBeforeEnter={true}
-                onExitComplete={() => null}
-            >
+            <AnimatePresence mode="wait">
                 {isLoading && (
                     <motion.div
                         initial={{ scale: 0 }}

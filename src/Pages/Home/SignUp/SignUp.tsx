@@ -96,7 +96,7 @@ const SignUp: FC<TProp> = ({ isSubmitting, setIsSubmitting }) => {
     const handleCreateUser = async () => {
         setIsSubmitting(true)
 
-        const url = process.env.REACT_APP_API_URL + '/user/createuser'
+        const url = import.meta.env.VITE_APP_API_URL + '/user/createuser'
 
         const { data } = await axios.post(url, {
             name: formData.name === '' ? formData.username : formData.name,
@@ -117,13 +117,7 @@ const SignUp: FC<TProp> = ({ isSubmitting, setIsSubmitting }) => {
                 {currentStepIndex + 1 + '/' + stepsLength}
             </div>
             <form>
-                <AnimatePresence
-                    initial={false}
-                    onExitComplete={() => null}
-                    exitBeforeEnter={true}
-                >
-                    {theStep}
-                </AnimatePresence>
+                <AnimatePresence mode="wait">{theStep}</AnimatePresence>
             </form>
             <div className={`flex between ${style.bottom_btns}`}>
                 {/* Back Starts */}

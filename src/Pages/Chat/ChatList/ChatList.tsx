@@ -30,10 +30,10 @@ const ChatList: React.FC = () => {
 
     useEffect(() => {
         if (user) {
-            if (!process.env.REACT_APP_API_ENDPOINT)
+            if (!import.meta.env.VITE_APP_API_ENDPOINT)
                 return console.error('ENDPOINT NOT AVAILABLE')
 
-            socket = io(process.env.REACT_APP_API_ENDPOINT)
+            socket = io(import.meta.env.VITE_APP_API_ENDPOINT)
             socket.emit('online', user)
             socket.on('__online__', () => setIsSocketConnected(true))
         }
@@ -59,7 +59,8 @@ const ChatList: React.FC = () => {
             setSearchResults([])
         } else {
             setIsSearching(true)
-            const url = process.env.REACT_APP_API_URL + `/user/?search=${query}`
+            const url =
+                import.meta.env.VITE_APP_API_URL + `/user/?search=${query}`
             const config = {
                 headers: { 'auth-token': user?.token },
             }
@@ -71,7 +72,7 @@ const ChatList: React.FC = () => {
 
     const fetchChats = async () => {
         try {
-            const url = process.env.REACT_APP_API_URL + '/chat/fetch'
+            const url = import.meta.env.VITE_APP_API_URL + '/chat/fetch'
             const config = {
                 headers: { 'auth-token': user?.token },
             }
@@ -111,11 +112,7 @@ const ChatList: React.FC = () => {
                     chats?.map((c: SingleChatData) => (
                         <ChatItem key={c._id} chat={c} />
                     ))}
-                <AnimatePresence
-                    initial={false}
-                    onExitComplete={() => null}
-                    exitBeforeEnter={true}
-                >
+                <AnimatePresence mode="wait">
                     {isSearchOnFocus && (
                         <SearchUserList searchResults={searchResults} />
                     )}

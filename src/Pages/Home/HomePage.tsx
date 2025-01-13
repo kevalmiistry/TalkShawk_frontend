@@ -51,11 +51,7 @@ const HomePage: FC = () => {
                     <h1>TalkShawk</h1>
                     <img src={TSLogo} alt="TalkShawk Main Logo" />
                 </div>
-                <AnimatePresence
-                    initial={false}
-                    exitBeforeEnter={true}
-                    onExitComplete={() => null}
-                >
+                <AnimatePresence mode="wait">
                     {isLogin && (
                         <motion.div
                             className={style.wrapper_div}
@@ -71,11 +67,7 @@ const HomePage: FC = () => {
                     )}
                 </AnimatePresence>
                 {/*  */}
-                <AnimatePresence
-                    initial={false}
-                    exitBeforeEnter={true}
-                    onExitComplete={() => null}
-                >
+                <AnimatePresence mode="wait">
                     {isSignUp && (
                         <motion.div
                             className={style.wrapper_div}
@@ -112,11 +104,7 @@ const HomePage: FC = () => {
                     </>
                 )}
             </section>
-            <AnimatePresence
-                initial={false}
-                onExitComplete={() => null}
-                exitBeforeEnter={true}
-            >
+            <AnimatePresence mode="wait">
                 {forgetPassModalOpen && (
                     <ModalOverlay>
                         <ForgetPassModal

@@ -59,7 +59,7 @@ const SingleChat: FC<TProp> = () => {
 
     const helper = async () => {
         try {
-            const url = process.env.REACT_APP_API_URL + `/message/create`
+            const url = import.meta.env.VITE_APP_API_URL + `/message/create`
             const config = { headers: { 'auth-token': user?.token } }
             const dataToSend = {
                 chatId: selectedChat?._id,
@@ -82,10 +82,10 @@ const SingleChat: FC<TProp> = () => {
     useEffect(() => {
         if (!isSocketConnected) return console.error('Socket is not connected')
 
-        if (!process.env.REACT_APP_API_ENDPOINT)
+        if (!import.meta.env.VITE_APP_API_ENDPOINT)
             return console.error('ENDPOINT NOT AVAILABLE')
 
-        socket = io(process.env.REACT_APP_API_ENDPOINT)
+        socket = io(import.meta.env.VITE_APP_API_ENDPOINT)
         socket.emit('joinChat', selectedChat?._id)
         socket.on('typing', (pic) => {
             setIsSomeOneTyping(true)
@@ -132,7 +132,8 @@ const SingleChat: FC<TProp> = () => {
         try {
             setIsMessagesLoading(true)
             const url =
-                process.env.REACT_APP_API_URL + `/message/${selectedChat?._id}`
+                import.meta.env.VITE_APP_API_URL +
+                `/message/${selectedChat?._id}`
             const config = {
                 headers: { 'auth-token': user?.token },
             }
@@ -239,11 +240,7 @@ const SingleChat: FC<TProp> = () => {
                 </div>
             </div>
             {/*  */}
-            <AnimatePresence
-                initial={false}
-                onExitComplete={() => null}
-                exitBeforeEnter={true}
-            >
+            <AnimatePresence mode="wait">
                 {isGrpModalOpen && (
                     <LocalOverLay
                         bgColor="#000"

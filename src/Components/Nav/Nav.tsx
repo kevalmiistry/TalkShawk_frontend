@@ -37,11 +37,7 @@ const Nav: React.FC = () => {
                     alt="user profile pic"
                     onClick={() => setMenuOpen((p) => !p)}
                 />
-                <AnimatePresence
-                    initial={false}
-                    onExitComplete={() => null}
-                    exitBeforeEnter={true}
-                >
+                <AnimatePresence mode="wait">
                     {menuOpen && (
                         <motion.div
                             initial={{ scale: 0 }}
@@ -74,11 +70,7 @@ const Nav: React.FC = () => {
                     onClick={() => setIsGroupModalOpen(true)}
                 />
             </div>
-            <AnimatePresence
-                initial={false}
-                onExitComplete={() => null}
-                exitBeforeEnter={true}
-            >
+            <AnimatePresence mode="wait">
                 {isProfileModalOpen && (
                     <ModalOverlay
                         initial={{ translateY: '-100%' }}
@@ -92,11 +84,7 @@ const Nav: React.FC = () => {
                 )}
             </AnimatePresence>
             {/*  */}
-            <AnimatePresence
-                initial={false}
-                onExitComplete={() => null}
-                exitBeforeEnter={true}
-            >
+            <AnimatePresence mode="wait">
                 {isGroupModalOpen && (
                     <ModalOverlay
                         initial={{ scale: 0, transformOrigin: 'top right' }}

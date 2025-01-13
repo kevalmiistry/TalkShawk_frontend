@@ -28,11 +28,7 @@ const ChatPage: FC = () => {
                 <div className={`${S.chatpage_main}`}>
                     <ChatList />
                     {isMobile ? (
-                        <AnimatePresence
-                            initial={false}
-                            onExitComplete={() => null}
-                            exitBeforeEnter={true}
-                        >
+                        <AnimatePresence mode="wait">
                             {selectedChat && <ChatBox />}
                         </AnimatePresence>
                     ) : (

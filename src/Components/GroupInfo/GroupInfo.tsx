@@ -41,7 +41,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
             } else {
                 setIsSearching(true)
                 const url =
-                    process.env.REACT_APP_API_URL + `/user/?search=${query}`
+                    import.meta.env.VITE_APP_API_URL + `/user/?search=${query}`
                 const config = {
                     headers: { 'auth-token': user?.token },
                 }
@@ -56,7 +56,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
 
     const handleAddUser = async (id: string) => {
         try {
-            const url = process.env.REACT_APP_API_URL + '/chat/addtogroup'
+            const url = import.meta.env.VITE_APP_API_URL + '/chat/addtogroup'
             const config = {
                 headers: {
                     'auth-token': user?.token,
@@ -86,7 +86,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
     }
     const handleLeaveGroup = async () => {
         try {
-            const url = process.env.REACT_APP_API_URL + '/chat/selfremove'
+            const url = import.meta.env.VITE_APP_API_URL + '/chat/selfremove'
             const config = {
                 headers: {
                     'auth-token': user?.token,
@@ -123,7 +123,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
 
     const handleNameChange = async () => {
         try {
-            const url = process.env.REACT_APP_API_URL + '/chat/renamegroup'
+            const url = import.meta.env.VITE_APP_API_URL + '/chat/renamegroup'
             const config = {
                 headers: {
                     'auth-token': user?.token,

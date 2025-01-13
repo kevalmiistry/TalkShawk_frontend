@@ -62,7 +62,8 @@ const ForgetPassword: FC<TProp> = () => {
     const handleSubmit = async () => {
         try {
             setIsSubmitting(true)
-            const url = process.env.REACT_APP_API_URL + '/user/forgetpassword'
+            const url =
+                import.meta.env.VITE_APP_API_URL + '/user/forgetpassword'
             const config = { headers: { 'auth-token': token } }
             const dataToSend = {
                 newPassword: password,

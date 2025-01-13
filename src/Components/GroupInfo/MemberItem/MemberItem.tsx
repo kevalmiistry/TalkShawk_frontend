@@ -34,7 +34,8 @@ const MemberItem: FC<TProp> = ({ user }) => {
 
     const handleRemove = async () => {
         try {
-            const url = process.env.REACT_APP_API_URL + '/chat/removefromgroup'
+            const url =
+                import.meta.env.VITE_APP_API_URL + '/chat/removefromgroup'
             const config = {
                 headers: {
                     'auth-token': state.user?.token,
@@ -64,7 +65,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
     }
     const handleMakeAdmin = async () => {
         try {
-            const url = process.env.REACT_APP_API_URL + '/chat/makeadmin'
+            const url = import.meta.env.VITE_APP_API_URL + '/chat/makeadmin'
             const config = {
                 headers: {
                     'auth-token': state.user?.token,
@@ -94,7 +95,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
     }
     const handleRemoveAdmin = async () => {
         try {
-            const url = process.env.REACT_APP_API_URL + '/chat/removeadmin'
+            const url = import.meta.env.VITE_APP_API_URL + '/chat/removeadmin'
             const config = {
                 headers: {
                     'auth-token': state.user?.token,
@@ -148,11 +149,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
                     icon={faEllipsisVertical}
                     className="pointer"
                 />
-                <AnimatePresence
-                    initial={false}
-                    onExitComplete={() => null}
-                    exitBeforeEnter={true}
-                >
+                <AnimatePresence mode="wait">
                     {isMenuOpen ? (
                         <motion.div
                             initial={{

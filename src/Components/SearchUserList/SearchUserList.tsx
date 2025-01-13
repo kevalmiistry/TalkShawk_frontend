@@ -22,7 +22,7 @@ const SearchUserList: React.FC<TProp> = ({ searchResults }) => {
                     'auth-token': u?.token,
                 },
             }
-            const url = process.env.REACT_APP_API_URL + '/chat/create'
+            const url = import.meta.env.VITE_APP_API_URL + '/chat/create'
             const { data } = await axios.post(url, { userId: _id }, config)
             state.setFetchChatsAgain((p) => !p)
             state.setSelectedChat(data)
