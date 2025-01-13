@@ -7,24 +7,18 @@ import ModalOverlay from "../../../Components/ModalOverlay/ModalOverlay";
 type TProp = {
   updateFormData: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
-  currentStepState: number;
   pic: string | null;
   setPic: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-const FormTwo: FC<TProp> = ({
-  updateFormData,
-  name,
-  currentStepState,
-  pic,
-  setPic,
-}) => {
+const FormTwo: FC<TProp> = ({ updateFormData, name, pic, setPic }) => {
   const [openModal, setOpenModal] = useState(false);
   return (
     <motion.div
-      initial={{ translateX: currentStepState === 0 ? "150%" : "-150%" }}
-      animate={{ translateX: "0%" }}
-      exit={{ translateX: "-150%" }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
       className={style.single_form}
     >
       <div>

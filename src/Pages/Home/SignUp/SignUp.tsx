@@ -1,18 +1,16 @@
-import React, { FC, useState } from "react";
-import FormOne from "./FormOne";
-import style from "./SignUp.module.scss";
-import FormTwo from "./FormTwo";
-import FormThree from "./FormThree";
-import useMultistepForm from "../../../Hooks/useMultistepForm";
+import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import { FC, useState } from "react";
+import { motion } from "framer-motion";
+import useMultistepForm from "../../../Hooks/useMultistepForm";
 import whiteSpinner from "../../../Assets/white_spinner.gif";
+import FormThree from "./FormThree";
+import FormTwo from "./FormTwo";
+import FormOne from "./FormOne";
+import TSLogo from "../../../Assets/talkshawk_logo.png";
+import style from "./SignUp.module.scss";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-type TProp = {
-  isSubmitting: boolean;
-  setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>;
-};
 type AccountData = {
   email: string;
   username: string;
@@ -21,7 +19,7 @@ type AccountData = {
   cpassword: string;
 };
 
-const INITIAL_DATA = {
+const INITIAL_DATA: AccountData = {
   email: "",
   username: "",
   name: "",
@@ -29,12 +27,14 @@ const INITIAL_DATA = {
   cpassword: "",
 };
 
-const SignUp: FC<TProp> = ({ isSubmitting, setIsSubmitting }) => {
+const SignUp: FC = () => {
   document.title = "TalkShawk | Signup";
+  const navigate = useNavigate();
   const updateFormData = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const [currentStepState, setCurrentStepState] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState<AccountData>(INITIAL_DATA);
 
@@ -70,7 +70,6 @@ const SignUp: FC<TProp> = ({ isSubmitting, setIsSubmitting }) => {
     <FormTwo
       updateFormData={updateFormData}
       {...formData}
-      currentStepState={currentStepState}
       pic={pic}
       setPic={setPic}
     />,
@@ -90,7 +89,6 @@ const SignUp: FC<TProp> = ({ isSubmitting, setIsSubmitting }) => {
     cursor: isEmailAvailable && isUsernameAvailable ? "pointer" : "not-allowed",
   };
 
-  const nev = useNavigate();
   // Fetch createuser API Function
   const handleCreateUser = async () => {
     setIsSubmitting(true);
@@ -106,18 +104,32 @@ const SignUp: FC<TProp> = ({ isSubmitting, setIsSubmitting }) => {
     });
 
     if (data.success) {
-      nev("/signupcomplete");
+      navigate("/signupcomplete");
     }
   };
 
   return (
-    <div className={`${style.signup_main}`}>
-      <div className={style.progress}>
-        {currentStepIndex + 1 + "/" + stepsLength}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className={`${style.signup_main}`}
+    >
+      <div className={`${style.main_title}`}>
+        <h1>TalkShawk</h1>
+        <img src={TSLogo} alt="TalkShawk Main Logo" />
       </div>
+
+      <div className={style.progress_wrapper}>
+        <div className={style.progress}>
+          {currentStepIndex + 1 + "/" + stepsLength}
+        </div>
+      </div>
+
       <form>
         <AnimatePresence mode="wait">{theStep}</AnimatePresence>
       </form>
+
       <div className={`flex between ${style.bottom_btns}`}>
         {/* Back Starts */}
         {!isFirstPage ? (
@@ -177,7 +189,13 @@ const SignUp: FC<TProp> = ({ isSubmitting, setIsSubmitting }) => {
           </button>
         )}
       </div>
-    </div>
+
+      {!isSubmitting ? (
+        <Link className={style.link} to={"/login"}>
+          Login
+        </Link>
+      ) : null}
+    </motion.div>
   );
 };
 

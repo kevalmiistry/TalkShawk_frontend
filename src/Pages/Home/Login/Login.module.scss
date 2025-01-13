@@ -1,7 +1,28 @@
 .login_main {
   max-width: 400px;
   margin-inline: auto;
-  margin-top: 10%;
+  margin-top: 6rem;
+
+  .main_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      height: 80px;
+      width: 80px;
+      margin-top: 10px;
+    }
+
+    h1 {
+      color: #fff;
+      text-align: center;
+      font-family: "gold";
+      font-size: 3.8rem;
+      margin: 0;
+    }
+  }
+
   span {
     color: #fff;
     transition: all 300ms ease-out;
@@ -11,6 +32,7 @@
     border-radius: 50vw;
     user-select: none;
   }
+
   .form {
     margin-top: 1rem;
     display: flex;
@@ -27,6 +49,7 @@
       color: #f4f4f4;
       font-weight: 600;
     }
+
     .login_btn {
       width: fit-content;
       margin: auto;
@@ -38,11 +61,27 @@
       outline: none;
     }
   }
+
+  .link {
+    color: teal;
+    user-select: none;
+    outline: none;
+    display: block;
+    border: none;
+    width: max-content;
+    text-decoration: none;
+    margin: auto;
+    margin-top: 2rem;
+    background: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .login_main {
     width: 100%;
+
     .form {
       .login_btn {
         font-size: 1.4rem;

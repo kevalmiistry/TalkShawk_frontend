@@ -50,9 +50,10 @@ const FormThree: FC<TProp> = ({
   return (
     <>
       <motion.div
-        initial={{ translateX: "150%" }}
-        animate={{ translateX: "0%" }}
-        exit={{ translateX: "-150%" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
         className={style.single_form}
       >
         <div>
