@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useMultiStepForm } from "../../../Hooks/useMultiStepForm";
 import { AnimatePresence } from "framer-motion";
 import { FC, useState } from "react";
 import { motion } from "framer-motion";
-import useMultistepForm from "../../../Hooks/useMultistepForm";
 import whiteSpinner from "../../../Assets/white_spinner.gif";
 import FormThree from "./FormThree";
 import FormTwo from "./FormTwo";
@@ -58,7 +58,7 @@ const SignUp: FC = () => {
     isFirstPage,
     isLastPage,
     stepsLength,
-  } = useMultistepForm([
+  } = useMultiStepForm([
     <FormOne
       updateFormData={updateFormData}
       {...formData}
