@@ -1,5 +1,5 @@
 import { FC } from "react";
-import S from "./ScollableChat.module.scss";
+import S from "./ScrollableChat.module.scss";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Message from "./Message/Message";
 import ScrollableFeed from "react-scrollable-feed";

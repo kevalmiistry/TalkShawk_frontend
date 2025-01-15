@@ -8,7 +8,7 @@ import LocalOverLay from "../../../../Components/LocalOverLay/LocalOverLay";
 import ChatState from "../../../../Context/ChatContext";
 import thin_spinner from "../../../../Assets/thin_spinner.gif";
 import { ToastState } from "../../../../Context/ToastContext";
-import ScollableChat from "./ScollableChat/ScollableChat";
+import ScrollableChat from "./ScrollableChat/ScrollableChat";
 import S from "./SingleChat.module.scss";
 import axios from "axios";
 import io, { Socket } from "socket.io-client";
@@ -92,7 +92,6 @@ const SingleChat: FC<TProp> = () => {
       setTypersPic(pic);
     });
     socket.on("stopTyping", () => setIsSomeOneTyping(false));
-    // eslint-disable-next-line
   }, []);
 
   const handleTyping = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -152,11 +151,10 @@ const SingleChat: FC<TProp> = () => {
   useEffect(() => {
     fetchMessages();
     selectedChatCompare = selectedChat;
-    // eslint-disable-next-line
   }, [selectedChat]);
 
   useEffect(() => {
-    socket.on("messageRecieved", (newMessageRecieved: TMessage) => {
+    socket.on("messageReceived", (newMessageRecieved: TMessage) => {
       if (
         !selectedChatCompare ||
         selectedChatCompare?._id !== newMessageRecieved.chat._id
@@ -166,7 +164,6 @@ const SingleChat: FC<TProp> = () => {
         setMessages((prev) => [...prev, newMessageRecieved]);
       }
     });
-    // eslint-disable-next-line
   }, []);
 
   return (
@@ -205,7 +202,7 @@ const SingleChat: FC<TProp> = () => {
                 <img src={thin_spinner} className={S.loading_img} alt="" />
               </div>
             ) : (
-              <ScollableChat
+              <ScrollableChat
                 isSomeOneTyping={isSomeOneTyping}
                 typersPic={typersPic}
                 messages={messages}
