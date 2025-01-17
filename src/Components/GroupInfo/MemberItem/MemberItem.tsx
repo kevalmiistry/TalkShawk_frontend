@@ -8,6 +8,7 @@ import S from "./MemberItem.module.scss";
 import spinner from "../../../Assets/small_spinner.gif";
 import axios from "axios";
 import { ToastState } from "../../../Context/ToastContext";
+import { Popover, PopoverContent, PopoverTrigger } from "../../Popover/Popover";
 
 type TProp = {
   user: UserData;
@@ -18,6 +19,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
   const state = ChatState();
 
   const { showToast } = ToastState();
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
   const groupAdminIds = selectedChat?.groupAdmins.map((u) => u._id);
 
@@ -34,6 +36,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
 
   const handleRemove = async () => {
     try {
+      setPopoverOpen(false);
       const url = import.meta.env.VITE_APP_API_URL + "/chat/removefromgroup";
       const config = {
         headers: {
@@ -64,6 +67,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
   };
   const handleMakeAdmin = async () => {
     try {
+      setPopoverOpen(false);
       const url = import.meta.env.VITE_APP_API_URL + "/chat/makeadmin";
       const config = {
         headers: {
@@ -94,6 +98,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
   };
   const handleRemoveAdmin = async () => {
     try {
+      setPopoverOpen(false);
       const url = import.meta.env.VITE_APP_API_URL + "/chat/removeadmin";
       const config = {
         headers: {
@@ -144,35 +149,32 @@ const MemberItem: FC<TProp> = ({ user }) => {
             <p className={S.username}>@{user.username}</p>
           </div>
         </li>
-        <FontAwesomeIcon icon={faEllipsisVertical} className="pointer" />
-        <AnimatePresence mode="wait">
-          {isMenuOpen ? (
-            <motion.div
-              initial={{
-                scale: 0,
-                transformOrigin: "top right",
-              }}
-              animate={{
-                scale: 1,
-                transformOrigin: "top right",
-              }}
-              exit={{
-                scale: 0,
-                transformOrigin: "top right",
-              }}
-              className={S.menu}
-            >
-              {groupAdminIds?.includes(user._id) ? (
-                <p onClick={handleRemoveAdmin}>Remove Admin</p>
-              ) : (
-                <>
-                  <p onClick={handleMakeAdmin}>Make Admin</p>
-                  <p onClick={handleRemove}>Remove</p>
-                </>
-              )}
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
+        <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+          <PopoverTrigger
+            className="border-none"
+            style={{ background: "#000" }}
+          >
+            <button className={S.option_btn}>
+              <FontAwesomeIcon icon={faEllipsisVertical} />
+            </button>
+          </PopoverTrigger>
+          <PopoverContent align="end" className={S.popover_content}>
+            {groupAdminIds?.includes(user._id) ? (
+              <p className={S.popover_item} onClick={handleRemoveAdmin}>
+                Remove Admin
+              </p>
+            ) : (
+              <>
+                <p className={S.popover_item} onClick={handleMakeAdmin}>
+                  Make Admin
+                </p>
+                <p className={S.popover_item} onClick={handleRemove}>
+                  Remove
+                </p>
+              </>
+            )}
+          </PopoverContent>
+        </Popover>
       </motion.div>
 
       {isLoading && (

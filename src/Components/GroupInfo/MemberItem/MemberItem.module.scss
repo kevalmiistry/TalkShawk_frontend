@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   .useritem {
     display: flex;
     justify-content: flex-start;
@@ -15,10 +16,12 @@
       width: 3.5rem;
       border-radius: 50vw;
     }
+
     .name {
       margin-bottom: 3px;
       font-size: 1.15rem;
     }
+
     .username {
       font-size: 0.9rem;
       color: #f4f4f4;
@@ -30,21 +33,36 @@
     }
   }
 
-  .menu {
-    position: absolute;
-    background-color: #222;
-    font-size: 1.15rem;
-    border-radius: 7px;
+  .option_btn {
+    height: 2rem;
+    width: 2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    color: #fff;
+    border: 0;
     overflow: hidden;
-    right: 20px;
-    top: 30%;
-    p {
-      user-select: none;
-      padding: 0.4rem 0.75rem;
-      cursor: pointer;
-      &:hover {
-        background-color: #333;
-      }
+    border-radius: 0.25rem;
+
+    &:hover {
+      background-color: rgb(255, 255, 255, 0.2);
+      overflow: hidden;
+    }
+  }
+}
+
+.popover_content {
+  width: 12rem;
+
+  .popover_item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+
+    &:hover {
+      background-color: #333;
     }
   }
 }
@@ -60,17 +78,21 @@
       img {
         width: 3rem; //
       }
+
       .name {
         font-size: 1rem; //
       }
+
       .username {
         font-size: 0.8rem; //
       }
     }
+
     .menu {
       z-index: 10; //
     }
   }
+
   .admin_tag {
     font-size: 0.85rem; //
   }
