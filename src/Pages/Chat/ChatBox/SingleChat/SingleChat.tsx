@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, FormEvent } from "react";
 import { faCaretRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AnimatePresence } from "framer-motion";
@@ -10,7 +10,7 @@ import thin_spinner from "../../../../Assets/thin_spinner.gif";
 import { ToastState } from "../../../../Context/ToastContext";
 import ScrollableChat from "./ScrollableChat/ScrollableChat";
 import S from "./SingleChat.module.scss";
-import axios from "axios";
+import axios, { CancelToken } from "axios";
 import io, { Socket } from "socket.io-client";
 
 let socket: Socket, selectedChatCompare: SingleChatData | null;
@@ -23,6 +23,7 @@ const SingleChat: FC<TProp> = () => {
 
   const [isGrpModalOpen, setIsGrpModalOpen] = useState(false);
 
+  const [isSending, setIsSending] = useState(false);
   const [isMessagesLoading, setIsMessagesLoading] = useState(false);
   const [messages, setMessages] = useState<TMessage[]>([]);
   const [newMessageToSend, setNewMessageToSend] = useState("");
@@ -43,22 +44,13 @@ const SingleChat: FC<TProp> = () => {
       : getOppositeUser(selectedChat.users, user).pic;
   }
 
-  const handleSendMessage = async (
-    e: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (e.key === "Enter" && newMessageToSend) {
-      helper();
-    }
-  };
+  const handleSendMessage = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const handleSendButtonClick = async () => {
-    if (newMessageToSend) {
-      helper();
-    }
-  };
-
-  const helper = async () => {
     try {
+      if (newMessageToSend.trim().length === 0) return;
+
+      setIsSending(true);
       const url = import.meta.env.VITE_APP_API_URL + `/message/create`;
       const config = { headers: { "auth-token": user?.token } };
       const dataToSend = {
@@ -69,7 +61,9 @@ const SingleChat: FC<TProp> = () => {
       setNewMessageToSend("");
       socket.emit("newMessage", data);
       setMessages((prev: TMessage[]) => [...prev, data]);
+      setIsSending(false);
     } catch (error) {
+      setIsSending(false);
       showToast({
         message: "Something went wrong!",
         show: true,
@@ -127,15 +121,16 @@ const SingleChat: FC<TProp> = () => {
     }, timeLength);
   };
 
-  const fetchMessages = async () => {
+  const fetchMessages = async (token: CancelToken) => {
     try {
       setIsMessagesLoading(true);
       const url =
         import.meta.env.VITE_APP_API_URL + `/message/${selectedChat?._id}`;
-      const config = {
+
+      const { data } = await axios.get(url, {
         headers: { "auth-token": user?.token },
-      };
-      const { data } = await axios.get(url, config);
+        cancelToken: token,
+      });
       setMessages(data);
       setIsMessagesLoading(false);
       socket.emit("joinChat", selectedChat?._id);
@@ -149,8 +144,11 @@ const SingleChat: FC<TProp> = () => {
   };
 
   useEffect(() => {
-    fetchMessages();
+    const fetchReq = axios.CancelToken.source();
+    fetchMessages(fetchReq.token);
     selectedChatCompare = selectedChat;
+
+    return () => fetchReq.cancel();
   }, [selectedChat]);
 
   useEffect(() => {
@@ -216,22 +214,19 @@ const SingleChat: FC<TProp> = () => {
         {/*  */}
 
         <div className={S.type_field}>
-          <div className={S.msg_input_wrapper}>
+          <form onSubmit={handleSendMessage} className={S.msg_input_wrapper}>
             <input
-              onKeyDown={handleSendMessage}
               onChange={handleTyping}
               value={newMessageToSend}
               type="text"
               placeholder="Type in your message"
               name="message"
+              disabled={isSending}
             />
-            <button
-              onClick={handleSendButtonClick}
-              className={`btn ${S.send_btn}`}
-            >
+            <button className={`btn ${S.send_btn}`} disabled={isSending}>
               Send
             </button>
-          </div>
+          </form>
         </div>
       </div>
 
