@@ -1,21 +1,21 @@
-import { motion } from "framer-motion";
-import React from "react";
-import UserItem from "../UserItem/UserItem";
-import S from "./SearchUserList.module.scss";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { motion } from "framer-motion";
+import { FC } from "react";
 import ChatState from "../../Context/ChatContext";
+import UserItem from "../UserItem/UserItem";
 import axios from "axios";
+import S from "./SearchUserList.module.scss";
 
 type TProp = {
   searchResults: UserData[];
 };
 
-const SearchUserList: React.FC<TProp> = ({ searchResults }) => {
+const SearchUserList: FC<TProp> = ({ searchResults }) => {
   const [animationParent] = useAutoAnimate<HTMLUListElement>();
 
   const state = ChatState();
   const u = state.user;
-  const createOneonOneChat = async (_id: string) => {
+  const createOneOnOneChat = async (_id: string) => {
     try {
       const config = {
         headers: {
@@ -36,14 +36,14 @@ const SearchUserList: React.FC<TProp> = ({ searchResults }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className={S.searchuserlist_main}
+      className={S.search_result_list_main}
     >
       <ul ref={animationParent}>
         {searchResults?.map((u: UserData) => (
           <UserItem
             key={u._id}
             user={u}
-            handleFunction={() => createOneonOneChat(u._id)}
+            handleFunction={() => createOneOnOneChat(u._id)}
           />
         ))}
       </ul>

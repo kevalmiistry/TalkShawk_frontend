@@ -111,16 +111,18 @@ const ChatList: FC = () => {
       >
         {isChatsFetching ? (
           chats.length > 0 ? (
-            chats.map((c: SingleChatData) => <ChatItem key={c._id} chat={c} />)
+            chats.map((c) => <ChatItem key={c._id} chat={c} />)
           ) : (
             <UserSkeleton />
           )
         ) : (
-          chats.map((c: SingleChatData) => <ChatItem key={c._id} chat={c} />)
+          chats.map((c) => <ChatItem key={c._id} chat={c} />)
         )}
 
         <AnimatePresence mode="wait">
-          {isSearchOnFocus && <SearchUserList searchResults={searchResults} />}
+          {isSearchOnFocus ? (
+            <SearchUserList searchResults={searchResults} />
+          ) : null}
         </AnimatePresence>
       </div>
     </div>

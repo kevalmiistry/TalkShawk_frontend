@@ -22,15 +22,14 @@ const SearchBox: React.FC<TProp> = ({
   isSearching,
 }) => (
   <div className={S.search}>
-    {isSearchOnFocus ? (
-      <FontAwesomeIcon
-        onClick={() => {
-          setSearch("");
-        }}
-        className={S.close_icons}
-        icon={faArrowLeft}
-      />
-    ) : null}
+    <FontAwesomeIcon
+      onClick={() => {
+        setSearch("");
+      }}
+      className={S.close_icons}
+      icon={faArrowLeft}
+      style={{ display: isSearchOnFocus ? "block" : "none" }}
+    />
 
     {isSearching ? (
       <img className={S.spinner} src={whiteSpinner} alt="loading spinner" />
@@ -49,7 +48,7 @@ const SearchBox: React.FC<TProp> = ({
       onFocus={() => setIsSearchOnFocus(true)}
       onBlur={() => {
         setIsSearchOnFocus(false);
-        setSearch("");
+        // setSearch("");
       }}
     />
   </div>

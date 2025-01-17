@@ -194,7 +194,9 @@ const SingleChat: FC<TProp> = () => {
             </div>
           </div>
         </div>
+
         {/*  */}
+
         <div className={S.chat_content}>
           <div className={S.chat_overflow_wrapper}>
             {isMessagesLoading ? (
@@ -210,7 +212,9 @@ const SingleChat: FC<TProp> = () => {
             )}
           </div>
         </div>
+
         {/*  */}
+
         <div className={S.type_field}>
           <div className={S.msg_input_wrapper}>
             <input
@@ -230,7 +234,9 @@ const SingleChat: FC<TProp> = () => {
           </div>
         </div>
       </div>
+
       {/*  */}
+
       <AnimatePresence mode="wait">
         {isGrpModalOpen && (
           <LocalOverLay
