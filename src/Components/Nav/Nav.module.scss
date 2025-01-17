@@ -1,60 +1,54 @@
 .nav_main {
-  // border: 1px solid red;
   padding: 0.2rem 1rem;
   height: calc(10% - 1px);
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #222;
+
   .user_profile {
-    position: relative;
+    background-color: #222;
+
     .user_pic {
       width: 40px;
       border-radius: 50vw;
       cursor: pointer;
     }
-    .menu {
-      font-size: 1.1rem;
-      z-index: 1000;
-      position: absolute;
-      background-color: #111;
-      border-radius: 10px;
-      box-shadow: 0px 0px 5px 0px rgba(255, 255, 255, 0.2);
-      overflow: hidden;
-      ul {
-        list-style: none;
-        li {
-          padding: 0.5rem 1.5rem;
-          cursor: pointer;
-          &:hover {
-            background-color: #333;
-          }
-        }
-      }
-    }
   }
+
   .logo {
     width: 60px;
     height: 60px;
   }
+
   .group_icon {
     cursor: pointer;
+  }
+}
+
+.popover_content {
+  width: 10rem;
+
+  .popover_item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+
+    &:hover {
+      background-color: #333;
+    }
   }
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .nav_main {
     height: fit-content;
+
     .user_profile {
       position: relative;
+
       .menu {
-        font-size: 1.25rem;
-        ul {
-          padding-block: 0.25rem;
-          li {
-            padding: 0.5rem 2rem;
-          }
-        }
+        font-size: 1rem;
       }
     }
   }
