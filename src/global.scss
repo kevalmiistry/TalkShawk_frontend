@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 //
 $main-color: teal;
+
 //
 *,
 *::after,
@@ -14,6 +15,7 @@ $main-color: teal;
   font-family: "gold";
   src: url("./Assets/GoldleafBold.ttf");
 }
+
 // for Chrome-Safari
 ::-webkit-scrollbar {
   width: 0;
@@ -68,4 +70,8 @@ body {
 
 .pointer {
   cursor: pointer;
+}
+
+.border-none {
+  border: 0 !important;
 }

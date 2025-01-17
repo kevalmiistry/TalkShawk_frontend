@@ -84,7 +84,7 @@ const FormThree: FC<TProp> = ({
           </div>
           <div className={style.small_msg}>
             <p style={{ color: isPassValid ? "green" : "red" }}>
-              {isPassValid ? "Looks Good" : "alphas+nums & min 8 chars"}
+              {isPassValid ? "Looks Good" : "alphanumeric + min 8 chars"}
             </p>
           </div>
         </div>

@@ -4,14 +4,16 @@ import S from "./Nav.module.scss";
 import talkshawk_logo from "../../Assets/talkshawk_logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import Profile from "../Profile/Profile";
 import CreateGroup from "../CreateGroup/CreateGroup";
+import { Popover, PopoverTrigger, PopoverContent } from "../Popover/Popover";
 
 const Nav: React.FC = () => {
   const { user, setFetchChatsAgain } = ChatState();
+  const [popoverOpen, setPopoverOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
@@ -22,6 +24,7 @@ const Nav: React.FC = () => {
     localStorage.removeItem("talkshawk_user");
     nev("/");
   };
+
   return (
     <div
       className={S.nav_main}
@@ -29,30 +32,33 @@ const Nav: React.FC = () => {
         if (menuOpen) setMenuOpen(false);
       }}
     >
-      <div className={S.user_profile}>
-        <img
-          title="Profile"
-          className={S.user_pic}
-          src={user?.pic}
-          alt="user profile pic"
-          onClick={() => setMenuOpen((p) => !p)}
-        />
-        <AnimatePresence mode="wait">
-          {menuOpen && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1, transformOrigin: "top left" }}
-              exit={{ scale: 0 }}
-              className={S.menu}
-            >
-              <ul>
-                <li onClick={() => setIsProfileModalOpen(true)}>Profile</li>
-                <li onClick={handleLogOut}>Logout</li>
-              </ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+        <PopoverTrigger className="border-none">
+          <div className={S.user_profile}>
+            <img
+              title="Profile"
+              className={S.user_pic}
+              src={user?.pic}
+              alt="user profile pic"
+              onClick={() => setMenuOpen((p) => !p)}
+            />
+          </div>
+        </PopoverTrigger>
+        <PopoverContent align="start" className={S.popover_content}>
+          <div
+            className={S.popover_item}
+            onClick={() => {
+              setPopoverOpen(false);
+              setIsProfileModalOpen(true);
+            }}
+          >
+            Profile
+          </div>
+          <div className={S.popover_item} onClick={handleLogOut}>
+            Logout
+          </div>
+        </PopoverContent>
+      </Popover>
 
       <img
         className={S.logo}
@@ -79,7 +85,9 @@ const Nav: React.FC = () => {
           </ModalOverlay>
         )}
       </AnimatePresence>
+
       {/*  */}
+
       <AnimatePresence mode="wait">
         {isGroupModalOpen && (
           <ModalOverlay

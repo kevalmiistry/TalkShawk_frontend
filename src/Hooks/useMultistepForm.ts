@@ -10,7 +10,8 @@ type HookReturns = {
   isFirstPage: boolean;
   isLastPage: boolean;
 };
-const useMultistepForm = (steps: ReactElement[]): HookReturns => {
+
+export const useMultiStepForm = (steps: ReactElement[]): HookReturns => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const next = () => {
@@ -42,4 +43,3 @@ const useMultistepForm = (steps: ReactElement[]): HookReturns => {
     isLastPage: currentStepIndex === steps.length - 1,
   };
 };
-export default useMultistepForm;

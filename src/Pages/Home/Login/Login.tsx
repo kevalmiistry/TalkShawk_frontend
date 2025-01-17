@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, FC } from "react";
+import { useState, FC, FormEvent } from "react";
 import { ToastState } from "../../../Context/ToastContext";
 import ForgetPassModal from "../ForgetPassModal/ForgetPassModal";
 import ModalOverlay from "../../../Components/ModalOverlay/ModalOverlay";
@@ -32,16 +32,23 @@ const Login: FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     const url = import.meta.env.VITE_APP_API_URL + "/user/login";
+
     const dataToSend = {
       type: type,
       email_username: type === "email" ? formData.email : formData.username,
       password: formData.password,
     };
+
     setIsSubmitting(true);
+
     const { data } = await axios.post(url, dataToSend);
+
     setIsSubmitting(false);
+
     if (data.success) {
       localStorage.setItem("talkshawk_user", JSON.stringify(data.user));
       showToast({
@@ -78,7 +85,8 @@ const Login: FC = () => {
           <h1>TalkShawk</h1>
           <img src={TSLogo} alt="TalkShawk Main Logo" />
         </div>
-        <form className={style.form}>
+
+        <form className={style.form} onSubmit={handleLogin}>
           <div className="flex around">
             <span
               style={emailStyle}
@@ -95,6 +103,7 @@ const Login: FC = () => {
               Username
             </span>
           </div>
+
           {type === "email" ? (
             <motion.input
               whileFocus={{ scale: 1.05 }}
@@ -114,6 +123,7 @@ const Login: FC = () => {
               onChange={onChangeHandler}
             />
           )}
+
           <motion.input
             whileFocus={{ scale: 1.05 }}
             type="password"
@@ -122,14 +132,14 @@ const Login: FC = () => {
             value={formData.password}
             onChange={onChangeHandler}
           />
+
           <motion.button
             disabled={isSubmitting}
             initial={{ scale: 1 }}
             whileTap={{ scale: 0.9 }}
             whileFocus={{ scale: 1.05 }}
-            type="button"
+            type="submit"
             className={`btn ${style.login_btn}`}
-            onClick={handleLogin}
           >
             {isSubmitting ? "Logging in..." : "Login"}
           </motion.button>

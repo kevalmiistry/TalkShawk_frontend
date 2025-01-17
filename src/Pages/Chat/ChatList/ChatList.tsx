@@ -1,6 +1,6 @@
 import axios from "axios";
 import { AnimatePresence } from "framer-motion";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import Nav from "../../../Components/Nav/Nav";
 import SearchBox from "../../../Components/SearchBox/SearchBox";
 import SearchUserList from "../../../Components/SearchUserList/SearchUserList";
@@ -11,7 +11,8 @@ import S from "./ChatList.module.scss";
 import io, { Socket } from "socket.io-client";
 
 let socket: Socket;
-const ChatList: React.FC = () => {
+
+const ChatList: FC = () => {
   const [search, setSearch] = useState("");
   const [isSearchOnFocus, setIsSearchOnFocus] = useState(false);
   const [searchResults, setSearchResults] = useState<any[]>([]);
@@ -37,12 +38,11 @@ const ChatList: React.FC = () => {
       socket.emit("online", user);
       socket.on("__online__", () => setIsSocketConnected(true));
     }
-    // eslint-disable-next-line
   }, [user]);
 
   useEffect(() => {
     socket.on(
-      "commonMessageRecieved",
+      "commonMessageReceived",
       (newMessage: TMessage, userID: string) => {
         if (userID !== user?._id) return;
 
@@ -51,7 +51,6 @@ const ChatList: React.FC = () => {
         }
       }
     );
-    // eslint-disable-next-line
   }, []);
 
   const onSearch = async (query: string) => {
@@ -83,6 +82,7 @@ const ChatList: React.FC = () => {
       console.error(error);
     }
   };
+
   useEffect(() => {
     if (search === "") {
       setSearchResults([]);
@@ -91,12 +91,12 @@ const ChatList: React.FC = () => {
 
   useEffect(() => {
     fetchChats();
-    // eslint-disable-next-line
   }, [fetchChatsAgain]);
 
   return (
-    <div className={S.chatlist_main}>
+    <div className={S.main_chat_list}>
       <Nav />
+
       <SearchBox
         search={search}
         setSearch={setSearch}
@@ -105,12 +105,25 @@ const ChatList: React.FC = () => {
         onSearch={onSearch}
         isSearching={isSearching}
       />
-      <div className={S.list}>
-        {!chats && isChatsFetching ? <UserSkeleton /> : null}
-        {!isChatsFetching &&
-          chats?.map((c: SingleChatData) => <ChatItem key={c._id} chat={c} />)}
+
+      <div
+        className={S.list}
+        style={{ overflow: isSearchOnFocus ? "hidden" : "auto" }}
+      >
+        {isChatsFetching ? (
+          chats.length > 0 ? (
+            chats.map((c) => <ChatItem key={c._id} chat={c} />)
+          ) : (
+            <UserSkeleton />
+          )
+        ) : (
+          chats.map((c) => <ChatItem key={c._id} chat={c} />)
+        )}
+
         <AnimatePresence mode="wait">
-          {isSearchOnFocus && <SearchUserList searchResults={searchResults} />}
+          {isSearchOnFocus ? (
+            <SearchUserList searchResults={searchResults} />
+          ) : null}
         </AnimatePresence>
       </div>
     </div>

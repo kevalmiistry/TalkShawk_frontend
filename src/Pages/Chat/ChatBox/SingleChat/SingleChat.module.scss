@@ -1,58 +1,72 @@
 .main_chat {
-  height: 99%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+
   .chat_head {
-    height: 10%;
     background-color: #111;
     position: relative;
     display: flex;
     align-items: center;
+    padding-block: 1rem;
+
     .icon_pic_wrapper {
       display: flex;
       justify-content: flex-start;
       align-items: center;
       gap: 1rem;
+
       .back_icon {
         margin-left: 1rem;
         cursor: pointer;
       }
+
       .name_wrapper {
         display: flex;
         justify-content: flex-start;
         align-items: center;
         gap: 1rem;
         cursor: pointer;
+
         .chat_pic {
           width: 3rem;
           border-radius: 50vw;
         }
+
         .chat_name {
           color: #fff;
         }
       }
     }
   }
+
   .chat_content {
-    height: 83%;
+    flex: 1;
     overflow: hidden;
+
     .message_loading {
       height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
+
       .loading_img {
         width: 8%;
       }
     }
+
     .chat_overflow_wrapper {
       height: 100%;
-      overflow-y: scroll;
+      overflow: auto;
     }
   }
+
   .type_field {
-    height: 8%;
     padding: 5px;
+
     .msg_input_wrapper {
       position: relative;
+
       input {
         width: 100%;
         height: 3rem;
@@ -65,9 +79,9 @@
         color: #fff;
         padding-right: 6rem;
       }
+
       .send_btn {
         position: absolute;
-        z-index: 10;
         right: 0px;
         top: 50%;
         transform: translateY(-50%);
@@ -78,7 +92,8 @@
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .main_chat {
-    height: 92%;
+    height: 100dvh;
+
     .chat_head {
       .icon_pic_wrapper {
         .name_wrapper {
@@ -87,24 +102,13 @@
           }
         }
       }
-      height: 8%;
     }
+
     .chat_content {
-      height: 84%;
       .message_loading {
         .loading_img {
           width: 17%;
         }
-      }
-    }
-    .type_field {
-      height: 8%;
-      &::after {
-        content: "Swipe Down from here to see chat head";
-        text-align: center;
-        font-size: 1rem;
-        margin-top: 2rem;
-        display: block;
       }
     }
   }

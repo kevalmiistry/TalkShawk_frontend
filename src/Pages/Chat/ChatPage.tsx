@@ -1,43 +1,41 @@
-import React, { FC } from "react";
-import ChatBox from "./ChatBox/ChatBox";
-import ChatList from "./ChatList/ChatList";
-import S from "./ChatPage.module.scss";
-import { isMobile } from "react-device-detect";
 import { AnimatePresence } from "framer-motion";
-import ChatState from "../../Context/ChatContext";
+import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { isMobile } from "react-device-detect";
+import ChatState from "../../Context/ChatContext";
+import ChatList from "./ChatList/ChatList";
+import ChatBox from "./ChatBox/ChatBox";
+import S from "./ChatPage.module.scss";
 
 const ChatPage: FC = () => {
   document.title = "TalkShawk | Chats";
   const { user, setUser, selectedChat } = ChatState();
-  const nev = useNavigate();
-  React.useEffect(() => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("talkshawk_user")!);
     setUser(userInfo);
 
     if (!userInfo) {
-      nev("/");
+      navigate("/");
     } else {
-      nev("/chat");
+      navigate("/chat");
     }
-    // eslint-disable-next-line
-  }, [nev]);
-  return (
-    <>
-      {user && (
-        <div className={`${S.chatpage_main}`}>
-          <ChatList />
-          {isMobile ? (
-            <AnimatePresence mode="wait">
-              {selectedChat && <ChatBox />}
-            </AnimatePresence>
-          ) : (
-            <ChatBox />
-          )}
-        </div>
+  }, [navigate]);
+
+  return user ? (
+    <div className={S.chat_page_main}>
+      <ChatList />
+
+      {isMobile ? (
+        <AnimatePresence mode="wait">
+          {selectedChat ? <ChatBox /> : null}
+        </AnimatePresence>
+      ) : (
+        <ChatBox />
       )}
-    </>
-  );
+    </div>
+  ) : null;
 };
 
 export default ChatPage;

@@ -157,7 +157,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
   };
   return (
     <>
-      <div className={S.groupinfo_main}>
+      <div className={S.group_info_main}>
         <div className={S.head_wrapper}>
           <FontAwesomeIcon
             className="pointer"
@@ -166,6 +166,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
           />
           <h2>Group Info</h2>
         </div>
+
         <div className={S.img_container}>
           <motion.img
             initial={{ scale: 0 }}
@@ -176,6 +177,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
             className={S.img}
           />
         </div>
+
         {isNameEditOpen ? (
           <div className={S.group_name}>
             <motion.input
@@ -210,6 +212,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
             />
           </motion.p>
         )}
+
         <div className={S.members}>
           <motion.p
             initial={{ opacity: 0 }}
@@ -218,10 +221,12 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
           >
             Members
           </motion.p>
+
           <ul ref={animationParent}>
             {selectedChat?.users
               .filter((u) => u._id !== user?._id)
               .map((u) => <MemberItem key={u._id} user={u} />)}
+
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -233,7 +238,9 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
             </motion.p>
           </ul>
         </div>
+
         {/*  */}
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -249,6 +256,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
             isSearching={isSearching}
             onSearch={onSearch}
           />
+
           <ul ref={animationParent} className={S.list}>
             {searchResults.map((u: UserData) => (
               <UserItem
@@ -259,6 +267,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
             ))}
           </ul>
         </motion.div>
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -270,11 +279,12 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
           </button>
         </motion.div>
       </div>
-      {isLoading && (
+
+      {isLoading ? (
         <LocalOverLay>
           <img src={spinner} style={{ width: "3rem" }} alt="Loading..." />
         </LocalOverLay>
-      )}
+      ) : null}
     </>
   );
 };

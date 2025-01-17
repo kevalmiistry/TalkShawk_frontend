@@ -1,8 +1,8 @@
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import whiteSpinner from "../../Assets/white_spinner.gif";
 import React from "react";
 import S from "./SearchBox.module.scss";
-import whiteSpinner from "../../Assets/white_spinner.gif";
 
 type TProp = {
   isSearchOnFocus: boolean;
@@ -20,39 +20,38 @@ const SearchBox: React.FC<TProp> = ({
   setSearch,
   onSearch,
   isSearching,
-}) => {
-  return (
-    <div className={S.search}>
-      {isSearchOnFocus && (
-        <FontAwesomeIcon
-          onClick={() => {
-            setSearch("");
-          }}
-          className={S.close_icons}
-          icon={faArrowLeft}
-        />
-      )}
-      {isSearching && (
-        <img className={S.spinner} src={whiteSpinner} alt="loading spinner" />
-      )}
-      <input
-        type="text"
-        placeholder={
-          isSearchOnFocus ? "Search with name, username..." : "Search..."
-        }
-        value={search}
-        onChange={(e) => {
-          setSearch(e.target.value);
-          onSearch(e.target.value);
-        }}
-        onFocus={() => setIsSearchOnFocus(true)}
-        onBlur={() => {
-          setIsSearchOnFocus(false);
-          setSearch("");
-        }}
-      />
-    </div>
-  );
-};
+}) => (
+  <div className={S.search}>
+    <FontAwesomeIcon
+      onClick={() => {
+        setSearch("");
+      }}
+      className={S.close_icons}
+      icon={faArrowLeft}
+      style={{ display: isSearchOnFocus ? "block" : "none" }}
+    />
+
+    {isSearching ? (
+      <img className={S.spinner} src={whiteSpinner} alt="loading spinner" />
+    ) : null}
+
+    <input
+      type="text"
+      value={search}
+      placeholder={
+        isSearchOnFocus ? "Search with name, username..." : "Search..."
+      }
+      onChange={(e) => {
+        setSearch(e.target.value);
+        onSearch(e.target.value);
+      }}
+      onFocus={() => setIsSearchOnFocus(true)}
+      onBlur={() => {
+        setIsSearchOnFocus(false);
+        // setSearch("");
+      }}
+    />
+  </div>
+);
 
 export default SearchBox;

@@ -1,0 +1,120 @@
+.popoverContent {
+  z-index: 1000;
+  min-width: 8rem;
+  border-radius: 0.5rem;
+  border: 1px solid #333;
+  background-color: #000;
+  padding: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  outline: none;
+  font-size: 1rem;
+
+  &[data-state="open"] {
+    animation:
+      fadeIn 0.2s ease-in-out,
+      zoomIn 0.2s ease-in-out;
+  }
+
+  &[data-state="closed"] {
+    animation:
+      fadeOut 0.2s ease-in-out,
+      zoomOut 0.2s ease-in-out;
+  }
+
+  &[data-side="bottom"] {
+    animation: slideInFromTop 0.2s ease-in-out;
+  }
+
+  &[data-side="left"] {
+    animation: slideInFromRight 0.2s ease-in-out;
+  }
+
+  &[data-side="right"] {
+    animation: slideInFromLeft 0.2s ease-in-out;
+  }
+
+  &[data-side="top"] {
+    animation: slideInFromBottom 0.2s ease-in-out;
+  }
+}
+
+/* Define animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.95);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(0.95);
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-0.5rem);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(0.5rem);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-0.5rem);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(0.5rem);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
