@@ -166,15 +166,11 @@
     }
 
     form {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    input {
-      display: block;
-      margin-inline: auto;
-      width: 90%;
+      input {
+        display: block;
+        margin-inline: auto;
+        width: 85%;
+      }
     }
   }
 

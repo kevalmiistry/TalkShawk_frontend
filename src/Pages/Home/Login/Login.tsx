@@ -86,17 +86,17 @@ const Login: FC = () => {
           <img src={TSLogo} alt="TalkShawk Main Logo" />
         </div>
 
-        <form className={style.form} onSubmit={handleLogin}>
-          <div className="flex around">
+        <form onSubmit={handleLogin}>
+          <div className={style.tabs}>
             <span
               style={emailStyle}
-              className="pointer"
+              className={style.tab_item}
               onClick={() => setType("email")}
             >
               Email
             </span>
             <span
-              className="pointer"
+              className={style.tab_item}
               style={usernameStyle}
               onClick={() => setType("username")}
             >
