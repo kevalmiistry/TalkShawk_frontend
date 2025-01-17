@@ -24,7 +24,7 @@ const ChatPage: FC = () => {
   }, [navigate]);
 
   return user ? (
-    <div className={S.chatpage_main}>
+    <div className={S.chat_page_main}>
       <ChatList />
 
       {isMobile ? (

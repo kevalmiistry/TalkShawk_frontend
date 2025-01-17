@@ -82,6 +82,7 @@ const ChatList: FC = () => {
       console.error(error);
     }
   };
+
   useEffect(() => {
     if (search === "") {
       setSearchResults([]);
