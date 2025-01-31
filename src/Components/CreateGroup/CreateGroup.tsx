@@ -11,14 +11,17 @@ import axios from "axios";
 import UserItem from "../UserItem/UserItem";
 import UserBadge from "../UserBadge/UserBadge";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 type TProp = {
   setIsGroupModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const CreateGroup: FC<TProp> = ({ setIsGroupModalOpen }) => {
   const [animationParent] = useAutoAnimate<HTMLUListElement>();
+  const user = useSelector((state: RootState) => state.user.value);
 
-  const { user, setSelectedChat, setChats } = ChatState();
+  const { setSelectedChat, setChats } = ChatState();
 
   const [chatName, setChatName] = useState<string>("");
 

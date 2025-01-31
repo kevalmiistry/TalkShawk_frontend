@@ -2,13 +2,16 @@ import React from "react";
 import { getOppositeUser } from "../../../../ChatLogics/ChatLogics";
 import ChatState from "../../../../Context/ChatContext";
 import S from "./ChatItem.module.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store";
 
 type TProp = {
   chat: SingleChatData;
 };
 
 const ChatItem: React.FC<TProp> = ({ chat }) => {
-  const { user, setSelectedChat } = ChatState();
+  const user = useSelector((state: RootState) => state.user.value);
+  const { setSelectedChat } = ChatState();
 
   const name = chat.isGroupChat
     ? chat.chatName
@@ -17,6 +20,7 @@ const ChatItem: React.FC<TProp> = ({ chat }) => {
   const pic = chat.isGroupChat
     ? chat.groupPic
     : getOppositeUser(chat.users, user!)?.pic;
+
   return (
     <li className={S.chatitem} onClick={() => setSelectedChat(chat)}>
       <img src={pic} alt="chat profile pic" />

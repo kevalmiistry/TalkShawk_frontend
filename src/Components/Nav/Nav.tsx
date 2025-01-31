@@ -10,9 +10,13 @@ import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import Profile from "../Profile/Profile";
 import CreateGroup from "../CreateGroup/CreateGroup";
 import { Popover, PopoverTrigger, PopoverContent } from "../Popover/Popover";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const Nav: React.FC = () => {
-  const { user, setFetchChatsAgain } = ChatState();
+  const user = useSelector((state: RootState) => state.user.value);
+
+  const { setFetchChatsAgain } = ChatState();
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 

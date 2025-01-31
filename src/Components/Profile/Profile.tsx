@@ -1,14 +1,15 @@
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FC } from "react";
-import ChatState from "../../Context/ChatContext";
 import S from "./Profile.module.scss";
+import { RootState } from "../../store";
+import { useSelector } from "react-redux";
 
 type TProp = {
   setIsProfileModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const Profile: FC<TProp> = ({ setIsProfileModalOpen }) => {
-  const { user } = ChatState();
+  const user = useSelector((state: RootState) => state.user.value);
   return (
     <>
       <div className={S.profile_main}>

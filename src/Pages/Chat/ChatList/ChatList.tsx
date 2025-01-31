@@ -9,6 +9,8 @@ import ChatState from "../../../Context/ChatContext";
 import ChatItem from "./ChatItem/ChatItem";
 import S from "./ChatList.module.scss";
 import io, { Socket } from "socket.io-client";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 
 let socket: Socket;
 
@@ -19,8 +21,9 @@ const ChatList: FC = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [isChatsFetching, setIsChatsFetching] = useState(false);
 
+  const user = useSelector((state: RootState) => state.user.value);
+
   const {
-    user,
     chats,
     setChats,
     fetchChatsAgain,

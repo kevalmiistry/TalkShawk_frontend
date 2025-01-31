@@ -6,19 +6,27 @@ import ChatState from "../../Context/ChatContext";
 import ChatList from "./ChatList/ChatList";
 import ChatBox from "./ChatBox/ChatBox";
 import S from "./ChatPage.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import { userSliceActions } from "../../store/user/userSlice";
 
 const ChatPage: FC = () => {
   document.title = "TalkShawk | Chats";
-  const { user, setUser, selectedChat } = ChatState();
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: RootState) => state.user.value);
+
+  const { selectedChat } = ChatState();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("talkshawk_user")!);
-    setUser(userInfo);
+    const userInfo: UserData | null = JSON.parse(
+      localStorage.getItem("talkshawk_user")!
+    );
 
     if (!userInfo) {
       navigate("/");
     } else {
+      dispatch(userSliceActions.setUser(userInfo));
       navigate("/chat");
     }
   }, [navigate]);

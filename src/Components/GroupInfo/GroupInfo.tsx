@@ -16,13 +16,16 @@ import MemberItem from "./MemberItem/MemberItem";
 import spinner from "../../Assets/small_spinner.gif";
 import { ToastState } from "../../Context/ToastContext";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 type TProp = {
   setIsGrpModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
-  const { selectedChat, user, setSelectedChat, setFetchChatsAgain } =
-    ChatState();
+  const user = useSelector((state: RootState) => state.user.value);
+
+  const { selectedChat, setSelectedChat, setFetchChatsAgain } = ChatState();
   const { showToast } = ToastState();
   const [animationParent] = useAutoAnimate<HTMLUListElement>();
 

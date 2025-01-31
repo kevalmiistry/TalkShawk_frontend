@@ -10,14 +10,17 @@ import thin_spinner from "../../../../Assets/thin_spinner.gif";
 import { ToastState } from "../../../../Context/ToastContext";
 import ScrollableChat from "./ScrollableChat/ScrollableChat";
 import S from "./SingleChat.module.scss";
-import axios, { CancelToken } from "axios";
+import axios, { CanceledError, CancelToken } from "axios";
 import io, { Socket } from "socket.io-client";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store";
 
 let socket: Socket, selectedChatCompare: SingleChatData | null;
 type TProp = {};
 const SingleChat: FC<TProp> = () => {
-  const { user, selectedChat, setSelectedChat, isSocketConnected } =
-    ChatState();
+  const user = useSelector((state: RootState) => state.user.value);
+
+  const { selectedChat, setSelectedChat, isSocketConnected } = ChatState();
 
   const { showToast } = ToastState();
 
@@ -135,6 +138,9 @@ const SingleChat: FC<TProp> = () => {
       setIsMessagesLoading(false);
       socket.emit("joinChat", selectedChat?._id);
     } catch (error) {
+      if (error instanceof CanceledError && error.code === "ERR_CANCELED") {
+        return;
+      }
       showToast({
         message: "Something went wrong!",
         show: true,
