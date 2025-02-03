@@ -2,7 +2,6 @@ import { AnimatePresence } from "framer-motion";
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { isMobile } from "react-device-detect";
-import ChatState from "../../Context/ChatContext";
 import ChatList from "./ChatList/ChatList";
 import ChatBox from "./ChatBox/ChatBox";
 import S from "./ChatPage.module.scss";
@@ -14,8 +13,10 @@ const ChatPage: FC = () => {
   document.title = "TalkShawk | Chats";
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user.value);
+  const selectedChat = useSelector(
+    (state: RootState) => state.chat.selectedChat
+  );
 
-  const { selectedChat } = ChatState();
   const navigate = useNavigate();
 
   useEffect(() => {

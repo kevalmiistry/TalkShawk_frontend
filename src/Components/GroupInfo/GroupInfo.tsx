@@ -16,16 +16,22 @@ import MemberItem from "./MemberItem/MemberItem";
 import spinner from "../../Assets/small_spinner.gif";
 import { ToastState } from "../../Context/ToastContext";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import { chatActions } from "../../store/chat/chatSlice";
 
 type TProp = {
   setIsGrpModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
   const user = useSelector((state: RootState) => state.user.value);
+  const selectedChat = useSelector(
+    (state: RootState) => state.chat.selectedChat
+  );
 
-  const { selectedChat, setSelectedChat, setFetchChatsAgain } = ChatState();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { setFetchChatsAgain } = ChatState();
   const { showToast } = ToastState();
   const [animationParent] = useAutoAnimate<HTMLUListElement>();
 
@@ -84,7 +90,8 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
         });
         return;
       }
-      setSelectedChat(data);
+
+      dispatch(chatActions.setSelectedChat(data));
       setFetchChatsAgain((p) => !p);
     } catch (error) {
       console.error(error);
@@ -111,7 +118,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
           status: "success",
           duration: 5000,
         });
-        setSelectedChat(null);
+        dispatch(chatActions.setSelectedChat(null));
         setFetchChatsAgain((p) => !p);
         return;
       } else if (data?.success === false) {
@@ -152,7 +159,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
         });
         return;
       }
-      setSelectedChat(data);
+      dispatch(chatActions.setSelectedChat(data));
       setFetchChatsAgain((p) => !p);
     } catch (error) {
       console.error(error);

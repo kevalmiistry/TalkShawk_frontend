@@ -5,8 +5,9 @@ import ChatState from "../../Context/ChatContext";
 import UserItem from "../UserItem/UserItem";
 import axios from "axios";
 import S from "./SearchUserList.module.scss";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import { chatActions } from "../../store/chat/chatSlice";
 
 type TProp = {
   searchResults: UserData[];
@@ -15,7 +16,9 @@ type TProp = {
 const SearchUserList: FC<TProp> = ({ searchResults }) => {
   const [animationParent] = useAutoAnimate<HTMLUListElement>();
 
-  const { setFetchChatsAgain, setSelectedChat } = ChatState();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { setFetchChatsAgain } = ChatState();
   const u = useSelector((state: RootState) => state.user.value);
 
   const createOneOnOneChat = async (_id: string) => {
@@ -28,7 +31,7 @@ const SearchUserList: FC<TProp> = ({ searchResults }) => {
       const url = import.meta.env.VITE_APP_API_URL + "/chat/create";
       const { data } = await axios.post(url, { userId: _id }, config);
       setFetchChatsAgain((p) => !p);
-      setSelectedChat(data);
+      dispatch(chatActions.setSelectedChat(data));
     } catch (error) {
       console.error(error);
     }

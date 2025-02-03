@@ -11,8 +11,9 @@ import axios from "axios";
 import UserItem from "../UserItem/UserItem";
 import UserBadge from "../UserBadge/UserBadge";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import { chatActions } from "../../store/chat/chatSlice";
 
 type TProp = {
   setIsGroupModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,7 +22,9 @@ const CreateGroup: FC<TProp> = ({ setIsGroupModalOpen }) => {
   const [animationParent] = useAutoAnimate<HTMLUListElement>();
   const user = useSelector((state: RootState) => state.user.value);
 
-  const { setSelectedChat, setChats } = ChatState();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { setChats } = ChatState();
 
   const [chatName, setChatName] = useState<string>("");
 
@@ -83,10 +86,14 @@ const CreateGroup: FC<TProp> = ({ setIsGroupModalOpen }) => {
         pic,
       };
       setIsCreating(true);
-      const { data } = await axios.post(url, dataToSend, config);
+      const { data } = await axios.post<SingleChatData>(
+        url,
+        dataToSend,
+        config
+      );
       if (data) {
         setChats((prev) => [data, ...prev]);
-        setSelectedChat(data);
+        dispatch(chatActions.setSelectedChat(data));
         setIsGroupModalOpen(false);
       }
       setIsCreating(false);

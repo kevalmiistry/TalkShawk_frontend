@@ -2,8 +2,9 @@ import React from "react";
 import { getOppositeUser } from "../../../../ChatLogics/ChatLogics";
 import ChatState from "../../../../Context/ChatContext";
 import S from "./ChatItem.module.scss";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../store";
+import { chatActions } from "../../../../store/chat/chatSlice";
 
 type TProp = {
   chat: SingleChatData;
@@ -11,7 +12,7 @@ type TProp = {
 
 const ChatItem: React.FC<TProp> = ({ chat }) => {
   const user = useSelector((state: RootState) => state.user.value);
-  const { setSelectedChat } = ChatState();
+  const dispatch = useDispatch<AppDispatch>();
 
   const name = chat.isGroupChat
     ? chat.chatName
@@ -22,7 +23,10 @@ const ChatItem: React.FC<TProp> = ({ chat }) => {
     : getOppositeUser(chat.users, user!)?.pic;
 
   return (
-    <li className={S.chatitem} onClick={() => setSelectedChat(chat)}>
+    <li
+      className={S.chatitem}
+      onClick={() => dispatch(chatActions.setSelectedChat(chat))}
+    >
       <img src={pic} alt="chat profile pic" />
       <div>
         <p className={S.name}>{name}</p>

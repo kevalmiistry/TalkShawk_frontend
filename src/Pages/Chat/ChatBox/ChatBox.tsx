@@ -1,12 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { FC } from "react";
 import SingleChat from "./SingleChat/SingleChat";
-import ChatState from "../../../Context/ChatContext";
 import ChatSVG from "./ChatSVG";
 import S from "./ChatBox.module.scss";
+import { RootState } from "../../../store";
+import { useSelector } from "react-redux";
 
 const ChatBox: FC = () => {
-  const { selectedChat } = ChatState();
+  const selectedChat = useSelector(
+    (state: RootState) => state.chat.selectedChat
+  );
 
   return (
     <motion.div

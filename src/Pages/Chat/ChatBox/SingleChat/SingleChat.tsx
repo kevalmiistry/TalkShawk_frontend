@@ -12,15 +12,21 @@ import ScrollableChat from "./ScrollableChat/ScrollableChat";
 import S from "./SingleChat.module.scss";
 import axios, { CanceledError, CancelToken } from "axios";
 import io, { Socket } from "socket.io-client";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../store";
+import { chatActions } from "../../../../store/chat/chatSlice";
 
 let socket: Socket, selectedChatCompare: SingleChatData | null;
 type TProp = {};
 const SingleChat: FC<TProp> = () => {
   const user = useSelector((state: RootState) => state.user.value);
+  const selectedChat = useSelector(
+    (state: RootState) => state.chat.selectedChat
+  );
 
-  const { selectedChat, setSelectedChat, isSocketConnected } = ChatState();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { isSocketConnected } = ChatState();
 
   const { showToast } = ToastState();
 
@@ -176,7 +182,7 @@ const SingleChat: FC<TProp> = () => {
         <div className={S.chat_head}>
           <div className={S.icon_pic_wrapper}>
             <FontAwesomeIcon
-              onClick={() => setSelectedChat(null)}
+              onClick={() => dispatch(chatActions.setSelectedChat(null))}
               className={S.back_icon}
               icon={faChevronLeft}
             />

@@ -22,13 +22,15 @@ const ChatList: FC = () => {
   const [isChatsFetching, setIsChatsFetching] = useState(false);
 
   const user = useSelector((state: RootState) => state.user.value);
+  const selectedChat = useSelector(
+    (state: RootState) => state.chat.selectedChat
+  );
 
   const {
     chats,
     setChats,
     fetchChatsAgain,
     setFetchChatsAgain,
-    selectedChat,
     setIsSocketConnected,
   } = ChatState();
 

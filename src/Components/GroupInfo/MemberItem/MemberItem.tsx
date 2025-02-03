@@ -1,7 +1,7 @@
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { motion, AnimatePresence } from "framer-motion";
-import React, { FC, useState } from "react";
+import { motion } from "framer-motion";
+import { FC, useState } from "react";
 import ChatState from "../../../Context/ChatContext";
 import LocalOverLay from "../../LocalOverLay/LocalOverLay";
 import S from "./MemberItem.module.scss";
@@ -9,14 +9,23 @@ import spinner from "../../../Assets/small_spinner.gif";
 import axios from "axios";
 import { ToastState } from "../../../Context/ToastContext";
 import { Popover, PopoverContent, PopoverTrigger } from "../../Popover/Popover";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store";
+import { chatActions } from "../../../store/chat/chatSlice";
 
 type TProp = {
   user: UserData;
 };
 
 const MemberItem: FC<TProp> = ({ user }) => {
-  const { selectedChat, setSelectedChat, setFetchChatsAgain } = ChatState();
-  const state = ChatState();
+  const { setFetchChatsAgain } = ChatState();
+  const selectedChat = useSelector(
+    (state: RootState) => state.chat.selectedChat
+  );
+
+  const currentUser = useSelector((state: RootState) => state.user.value);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const { showToast } = ToastState();
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -40,7 +49,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
       const url = import.meta.env.VITE_APP_API_URL + "/chat/removefromgroup";
       const config = {
         headers: {
-          "auth-token": state.user?.token,
+          "auth-token": currentUser?.token,
         },
       };
       const dataToSend = {
@@ -59,7 +68,8 @@ const MemberItem: FC<TProp> = ({ user }) => {
         });
         return;
       }
-      setSelectedChat(data);
+
+      dispatch(chatActions.setSelectedChat(data));
       setFetchChatsAgain((p) => !p);
     } catch (error) {
       console.error(error);
@@ -71,7 +81,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
       const url = import.meta.env.VITE_APP_API_URL + "/chat/makeadmin";
       const config = {
         headers: {
-          "auth-token": state.user?.token,
+          "auth-token": currentUser?.token,
         },
       };
       const dataToSend = {
@@ -90,7 +100,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
         });
         return;
       }
-      setSelectedChat(data);
+      dispatch(chatActions.setSelectedChat(data));
       setFetchChatsAgain((p) => !p);
     } catch (error) {
       console.error(error);
@@ -102,7 +112,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
       const url = import.meta.env.VITE_APP_API_URL + "/chat/removeadmin";
       const config = {
         headers: {
-          "auth-token": state.user?.token,
+          "auth-token": currentUser?.token,
         },
       };
       const dataToSend = {
@@ -121,7 +131,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
         });
         return;
       }
-      setSelectedChat(data);
+      dispatch(chatActions.setSelectedChat(data));
       setFetchChatsAgain((p) => !p);
     } catch (error) {
       console.error(error);
