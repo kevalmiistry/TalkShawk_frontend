@@ -5,7 +5,6 @@ import { AnimatePresence } from "framer-motion";
 import { getOppositeUser } from "../../../../ChatLogics/ChatLogics";
 import GroupInfo from "../../../../Components/GroupInfo/GroupInfo";
 import LocalOverLay from "../../../../Components/LocalOverLay/LocalOverLay";
-import ChatState from "../../../../Context/ChatContext";
 import thin_spinner from "../../../../Assets/thin_spinner.gif";
 import { ToastState } from "../../../../Context/ToastContext";
 import ScrollableChat from "./ScrollableChat/ScrollableChat";
@@ -17,16 +16,18 @@ import { AppDispatch, RootState } from "../../../../store";
 import { chatActions } from "../../../../store/chat/chatSlice";
 
 let socket: Socket, selectedChatCompare: SingleChatData | null;
+
 type TProp = {};
 const SingleChat: FC<TProp> = () => {
   const user = useSelector((state: RootState) => state.user.value);
   const selectedChat = useSelector(
     (state: RootState) => state.chat.selectedChat
   );
+  const isSocketConnected = useSelector(
+    (state: RootState) => state.chat.isSocketConnected
+  );
 
   const dispatch = useDispatch<AppDispatch>();
-
-  const { isSocketConnected } = ChatState();
 
   const { showToast } = ToastState();
 
@@ -164,16 +165,18 @@ const SingleChat: FC<TProp> = () => {
   }, [selectedChat]);
 
   useEffect(() => {
-    socket.on("messageReceived", (newMessageRecieved: TMessage) => {
-      if (
-        !selectedChatCompare ||
-        selectedChatCompare?._id !== newMessageRecieved.chat._id
-      ) {
-        // do nothing
-      } else {
-        setMessages((prev) => [...prev, newMessageRecieved]);
-      }
-    });
+    if (socket) {
+      socket.on("messageReceived", (newMessageReceived: TMessage) => {
+        if (
+          !selectedChatCompare ||
+          selectedChatCompare?._id !== newMessageReceived.chat._id
+        ) {
+          // do nothing
+        } else {
+          setMessages((prev) => [...prev, newMessageReceived]);
+        }
+      });
+    }
   }, []);
 
   return (

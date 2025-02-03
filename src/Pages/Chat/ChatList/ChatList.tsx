@@ -5,7 +5,6 @@ import Nav from "../../../Components/Nav/Nav";
 import SearchBox from "../../../Components/SearchBox/SearchBox";
 import SearchUserList from "../../../Components/SearchUserList/SearchUserList";
 import UserSkeleton from "../../../Components/UserSkeleton/UserSkeleton";
-import ChatState from "../../../Context/ChatContext";
 import ChatItem from "./ChatItem/ChatItem";
 import S from "./ChatList.module.scss";
 import io, { Socket } from "socket.io-client";
@@ -33,8 +32,6 @@ const ChatList: FC = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const { setIsSocketConnected } = ChatState();
-
   useEffect(() => {
     if (user) {
       if (!import.meta.env.VITE_APP_API_ENDPOINT)
@@ -42,7 +39,9 @@ const ChatList: FC = () => {
 
       socket = io(import.meta.env.VITE_APP_API_ENDPOINT);
       socket.emit("online", user);
-      socket.on("__online__", () => setIsSocketConnected(true));
+      socket.on("__online__", () =>
+        dispatch(chatActions.setIsSocketConnected(true))
+      );
     }
   }, [user]);
 

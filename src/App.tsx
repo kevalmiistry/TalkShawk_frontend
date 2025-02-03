@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ChatProvider } from "./Context/ChatContext";
 import { FC } from "react";
 import ForgetPassword from "./Pages/ForgetPassword/ForgetPassword";
 import SignUpComplete from "./Pages/SignUpComplete/SignUpComplete";
@@ -17,22 +16,17 @@ const App: FC = () => {
     <>
       <ToastProvider>
         <BrowserRouter>
-          <ChatProvider>
-            <Toast />
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
+          <Toast />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
 
-              <Route path="/chat" element={<ChatPage />} />
-              <Route path="/signupcomplete" element={<SignUpComplete />} />
-              <Route path="/verifyemail/:token" element={<VerifyEmail />} />
-              <Route
-                path="/forgetpassword/:token"
-                element={<ForgetPassword />}
-              />
-            </Routes>
-          </ChatProvider>
+            <Route path="/chat" element={<ChatPage />} />
+            <Route path="/signupcomplete" element={<SignUpComplete />} />
+            <Route path="/verifyemail/:token" element={<VerifyEmail />} />
+            <Route path="/forgetpassword/:token" element={<ForgetPassword />} />
+          </Routes>
         </BrowserRouter>
       </ToastProvider>
     </>
