@@ -18,7 +18,6 @@ type TProp = {
 };
 
 const MemberItem: FC<TProp> = ({ user }) => {
-  const { setFetchChatsAgain } = ChatState();
   const selectedChat = useSelector(
     (state: RootState) => state.chat.selectedChat
   );
@@ -70,7 +69,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
       }
 
       dispatch(chatActions.setSelectedChat(data));
-      setFetchChatsAgain((p) => !p);
+      dispatch(chatActions.setFetchChatsAgain((p) => !p));
     } catch (error) {
       console.error(error);
     }
@@ -101,7 +100,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
         return;
       }
       dispatch(chatActions.setSelectedChat(data));
-      setFetchChatsAgain((p) => !p);
+      dispatch(chatActions.setFetchChatsAgain((p) => !p));
     } catch (error) {
       console.error(error);
     }
@@ -132,7 +131,7 @@ const MemberItem: FC<TProp> = ({ user }) => {
         return;
       }
       dispatch(chatActions.setSelectedChat(data));
-      setFetchChatsAgain((p) => !p);
+      dispatch(chatActions.setFetchChatsAgain((p) => !p));
     } catch (error) {
       console.error(error);
     }

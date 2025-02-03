@@ -10,13 +10,14 @@ import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import Profile from "../Profile/Profile";
 import CreateGroup from "../CreateGroup/CreateGroup";
 import { Popover, PopoverTrigger, PopoverContent } from "../Popover/Popover";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import { chatActions } from "../../store/chat/chatSlice";
 
 const Nav: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user.value);
 
-  const { setFetchChatsAgain } = ChatState();
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -68,7 +69,7 @@ const Nav: React.FC = () => {
         className={S.logo}
         src={talkshawk_logo}
         alt="TalkShawk Logo"
-        onClick={() => setFetchChatsAgain((p) => !p)}
+        onClick={() => dispatch(chatActions.setFetchChatsAgain((p) => !p))}
       />
 
       <div title="Create Group">

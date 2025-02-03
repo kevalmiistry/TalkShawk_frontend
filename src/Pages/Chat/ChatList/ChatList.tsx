@@ -27,11 +27,13 @@ const ChatList: FC = () => {
     (state: RootState) => state.chat.selectedChat
   );
   const chats = useSelector((state: RootState) => state.chat.chats);
+  const fetchChatsAgain = useSelector(
+    (state: RootState) => state.chat.fetchChatsAgain
+  );
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const { fetchChatsAgain, setFetchChatsAgain, setIsSocketConnected } =
-    ChatState();
+  const { setIsSocketConnected } = ChatState();
 
   useEffect(() => {
     if (user) {
@@ -51,7 +53,7 @@ const ChatList: FC = () => {
         if (userID !== user?._id) return;
 
         if (selectedChat?._id !== newMessage.chat._id) {
-          setFetchChatsAgain((p) => !p);
+          dispatch(chatActions.setFetchChatsAgain((p) => !p));
         }
       }
     );

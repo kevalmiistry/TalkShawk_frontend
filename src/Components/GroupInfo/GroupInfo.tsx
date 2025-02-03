@@ -31,7 +31,6 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const { setFetchChatsAgain } = ChatState();
   const { showToast } = ToastState();
   const [animationParent] = useAutoAnimate<HTMLUListElement>();
 
@@ -90,9 +89,8 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
         });
         return;
       }
-
       dispatch(chatActions.setSelectedChat(data));
-      setFetchChatsAgain((p) => !p);
+      dispatch(chatActions.setFetchChatsAgain((p) => !p));
     } catch (error) {
       console.error(error);
     }
@@ -119,7 +117,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
           duration: 5000,
         });
         dispatch(chatActions.setSelectedChat(null));
-        setFetchChatsAgain((p) => !p);
+        dispatch(chatActions.setFetchChatsAgain((p) => !p));
         return;
       } else if (data?.success === false) {
         showToast({
@@ -160,7 +158,7 @@ const GroupInfo: FC<TProp> = ({ setIsGrpModalOpen }) => {
         return;
       }
       dispatch(chatActions.setSelectedChat(data));
-      setFetchChatsAgain((p) => !p);
+      dispatch(chatActions.setFetchChatsAgain((p) => !p));
     } catch (error) {
       console.error(error);
     }
