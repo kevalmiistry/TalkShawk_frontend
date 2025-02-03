@@ -9,8 +9,9 @@ import ChatState from "../../../Context/ChatContext";
 import ChatItem from "./ChatItem/ChatItem";
 import S from "./ChatList.module.scss";
 import io, { Socket } from "socket.io-client";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store";
+import { chatActions } from "../../../store/chat/chatSlice";
 
 let socket: Socket;
 
@@ -25,14 +26,12 @@ const ChatList: FC = () => {
   const selectedChat = useSelector(
     (state: RootState) => state.chat.selectedChat
   );
+  const chats = useSelector((state: RootState) => state.chat.chats);
 
-  const {
-    chats,
-    setChats,
-    fetchChatsAgain,
-    setFetchChatsAgain,
-    setIsSocketConnected,
-  } = ChatState();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { fetchChatsAgain, setFetchChatsAgain, setIsSocketConnected } =
+    ChatState();
 
   useEffect(() => {
     if (user) {
@@ -81,7 +80,7 @@ const ChatList: FC = () => {
       };
       setIsChatsFetching(true);
       const { data } = await axios.get(url, config);
-      setChats(data);
+      dispatch(chatActions.setChats(data));
       setIsChatsFetching(false);
     } catch (error) {
       console.error(error);

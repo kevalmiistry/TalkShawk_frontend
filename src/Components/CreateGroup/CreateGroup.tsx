@@ -24,8 +24,6 @@ const CreateGroup: FC<TProp> = ({ setIsGroupModalOpen }) => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const { setChats } = ChatState();
-
   const [chatName, setChatName] = useState<string>("");
 
   const [openModal, setOpenModal] = useState(false);
@@ -92,7 +90,7 @@ const CreateGroup: FC<TProp> = ({ setIsGroupModalOpen }) => {
         config
       );
       if (data) {
-        setChats((prev) => [data, ...prev]);
+        dispatch(chatActions.setChats((prev) => [data, ...prev]));
         dispatch(chatActions.setSelectedChat(data));
         setIsGroupModalOpen(false);
       }
